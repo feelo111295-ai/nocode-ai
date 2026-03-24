@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No Code-AI — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #F4A300; --gold2: #FFD166;
+      --navy: #0A1628; --navy2: #112240; --navy3: #1A3358;
+      --text: #F8F9FF; --muted: #8892A4;
+      --teal: #00C9A7; --red: #FF4D6D;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(244,163,0,0.15);
+    }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--navy); color: var(--text);
+      min-height: 100vh;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(244,163,0,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244,163,0,0.02) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,22,40,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 2px; color: var(--gold);
+      text-decoration: none;
+    }
+    .topbar-logo span { color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 1.5rem; }
+    .topbar-user { font-size: 0.85rem; color: var(--muted); }
+    .topbar-user strong { color: var(--text); }
+    .topbar-signout {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted); font-size: 0.82rem; font-weight: 600;
+      padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer;
+      transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+    }
+    .topbar-signout:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    /* ── Layout ── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
+
+    /* ── Page header ── */
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; letter-spacing: 2px; color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .page-header p { font-size: 0.88rem; color: var(--muted); }
+    .status-dot {
+      display: inline-block; width: 8px; height: 8px;
+      border-radius: 50%; background: var(--teal);
+      margin-right: 6px; animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── Stat cards ── */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+    }
+    .stat-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--text); line-height: 1; }
+    .stat-value.gold { color: var(--gold); }
+    .stat-value.teal { color: var(--teal); }
+    .stat-sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+    .stat-trend { font-size: 0.78rem; color: var(--teal); font-weight: 600; margin-top: 0.4rem; }
+
+    /* ── Two-col layout ── */
+    .dash-cols { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; margin-bottom: 2rem; }
+
+    /* ── Bot status cards ── */
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+      letter-spacing: 2px; color: var(--text); margin-bottom: 1rem;
+    }
+    .bots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .bot-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.3rem;
+      transition: border-color 0.2s;
+    }
+    .bot-card.online { border-color: rgba(0,201,167,0.3); }
+    .bot-card.offline { border-color: rgba(255,77,109,0.2); }
+    .bot-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
+    .bot-name { font-weight: 700; font-size: 0.95rem; }
+    .bot-status {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px;
+    }
+    .bot-status.online { background: rgba(0,201,167,0.12); color: var(--teal); }
+    .bot-status.offline { background: rgba(255,77,109,0.1); color: var(--red); }
+    .bot-role { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .bot-stat { font-size: 0.82rem; color: var(--muted); }
+    .bot-stat strong { color: var(--text); }
+    .bot-last { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; }
+
+    /* ── Activity feed ── */
+    .activity-feed {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+    }
+    .activity-header {
+      padding: 1rem 1.3rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .activity-header h3 { font-size: 0.85rem; font-weight: 700; }
+    .activity-header span { font-size: 0.75rem; color: var(--muted); }
+    .activity-list { max-height: 420px; overflow-y: auto; }
+    .activity-list::-webkit-scrollbar { width: 4px; }
+    .activity-list::-webkit-scrollbar-track { background: transparent; }
+    .activity-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .activity-item {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 0.9rem 1.3rem; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .activity-icon.message  { background: rgba(244,163,0,0.1); }
+    .activity-icon.lead     { background: rgba(0,201,167,0.1); }
+    .activity-icon.appt     { background: rgba(100,130,255,0.1); }
+    .activity-icon.email    { background: rgba(244,163,0,0.08); }
+    .activity-body { flex: 1; min-width: 0; }
+    .activity-text { font-size: 0.83rem; color: var(--text); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .activity-meta { font-size: 0.73rem; color: var(--muted); margin-top: 2px; }
+    .activity-empty { padding: 2.5rem; text-align: center; color: var(--muted); font-size: 0.88rem; }
+
+    /* ── Savings section ── */
+    .savings-card {
+      background: linear-gradient(135deg, rgba(244,163,0,0.08), rgba(244,163,0,0.02));
+      border: 1px solid rgba(244,163,0,0.2);
+      border-radius: 14px; padding: 1.5rem; margin-bottom: 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .savings-left h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 0.3rem; }
+    .savings-left p { font-size: 0.85rem; color: var(--muted); max-width: 360px; line-height: 1.5; }
+    .savings-right { text-align: right; }
+    .savings-big { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--gold); line-height: 1; }
+    .savings-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── Quick actions ── */
+    .quick-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .qa-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.85rem; font-weight: 600;
+      padding: 0.65rem 1.2rem; border-radius: 8px; cursor: pointer;
+      text-decoration: none; transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .qa-btn:hover { border-color: rgba(244,163,0,0.4); color: var(--gold); }
+    .qa-btn .qa-icon { font-size: 1rem; }
+
+    /* ── Loading state ── */
+    .loading-overlay {
+      position: fixed; inset: 0;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999; flex-direction: column; gap: 1rem;
+    }
+    .loading-overlay.hide { display: none; }
+    .loading-spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(244,163,0,0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 2px; color: var(--muted); }
+
+    /* ── Responsive ── */
+    @media(max-width: 900px) {
+      .dash-cols { grid-template-columns: 1fr; }
+    }
+    @media(max-width: 600px) {
+      .bots-grid { grid-template-columns: 1fr; }
+      .page { padding: 1rem; }
+      .topbar { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading your dashboard...</div>
+</div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">NO CODE<span>-AI</span></a>
+  <div class="topbar-right">
+    <div class="topbar-user">Signed in as <strong id="userEmail">...</strong></div>
+    <button class="topbar-signout" onclick="signOut()">Sign Out</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <h1><span class="status-dot"></span>Your AI Command Center</h1>
+    <p id="lastUpdated">Loading activity data...</p>
+  </div>
+
+  <!-- Stats row -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Messages Handled</div>
+      <div class="stat-value" id="statMessages">—</div>
+      <div class="stat-sub">last 30 days</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Leads Captured</div>
+      <div class="stat-value teal" id="statLeads">—</div>
+      <div class="stat-sub">last 30 days</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Appointments Booked</div>
+      <div class="stat-value gold" id="statAppts">—</div>
+      <div class="stat-sub">last 30 days</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Emails Sent</div>
+      <div class="stat-value" id="statEmails">—</div>
+      <div class="stat-sub">last 30 days</div>
+    </div>
+  </div>
+
+  <!-- Savings bar -->
+  <div class="savings-card">
+    <div class="savings-left">
+      <h3>Estimated Monthly Savings</h3>
+      <p>Based on industry avg tool costs for the bots you have running. Every message handled, lead captured, and appointment booked is money you're not paying a human to do.</p>
+    </div>
+    <div class="savings-right">
+      <div class="savings-big" id="savingsBig">$—</div>
+      <div class="savings-sub">saved this month vs manual ops</div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="quick-actions">
+    <a href="https://discord.gg/97F5Ywyk" target="_blank" class="qa-btn"><span class="qa-icon">💬</span> Talk to Support</a>
+    <button class="qa-btn" onclick="refreshData()"><span class="qa-icon">🔄</span> Refresh Data</button>
+    <button class="qa-btn" onclick="exportActivity()"><span class="qa-icon">📥</span> Export Activity</button>
+  </div>
+
+  <!-- Main columns -->
+  <div class="dash-cols">
+    <!-- Left: Bots + activity -->
+    <div>
+      <div class="section-title">YOUR BOTS</div>
+      <div class="bots-grid" id="botsGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div style="margin-top: 1.5rem;">
+        <div class="section-title">RECENT ACTIVITY</div>
+        <div class="activity-feed">
+          <div class="activity-header">
+            <h3>All Bot Activity</h3>
+            <span id="activityCount">Loading...</span>
+          </div>
+          <div class="activity-list" id="activityList">
+            <div class="activity-empty">Loading activity...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Plan info -->
+    <div>
+      <div class="section-title">YOUR PLAN</div>
+      <div style="background:var(--card); border:1px solid var(--gold); border-radius:14px; padding:1.5rem; margin-bottom:1.5rem;">
+        <div style="font-size:0.72rem; font-weight:700; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:0.3rem;">Active Plan</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; margin-bottom:0.3rem;" id="planName">—</div>
+        <div style="font-size:2rem; font-weight:800; color:var(--gold);">$97<span style="font-size:0.9rem; font-weight:400; color:var(--muted);">/month</span></div>
+        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.06); margin:1rem 0;" />
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem;" id="planFeatures">
+          <li style="font-size:0.85rem; color:var(--muted);">Loading...</li>
+        </ul>
+        <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; margin-top:1.2rem; background:rgba(244,163,0,0.08); border:1px solid rgba(244,163,0,0.25); color:var(--gold); text-decoration:none; padding:0.65rem; border-radius:8px; font-size:0.85rem; font-weight:700;">
+          Upgrade or Change Plan →
+        </a>
+      </div>
+
+      <div class="section-title">NEED HELP?</div>
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem;">
+        <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Our team is in Discord 7 days a week. Ask anything — we'll get your bots dialed in exactly how you need them.</p>
+        <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; background:var(--gold); color:var(--navy); text-decoration:none; padding:0.7rem; border-radius:8px; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px;">OPEN DISCORD</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+const SUPABASE_URL  = 'https://vcvjzinpkefsvcmwetcl.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_bTd0Bi-4eL50nJgaweXs3g_O2M7wOe4';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ── Bot definitions ───────────────────────────────────────────────────────────
+const BOTS = [
+  { key: 'felix', name: 'Felix Bot',     role: 'Command Center / Operations',  emoji: '⚡' },
+  { key: 'kerry', name: 'Kerry Bot',     role: 'Trendora — Sales & Marketing', emoji: '🛒' },
+  { key: 'mia',   name: 'Mia Bot',       role: 'No Code-AI Sales & Onboarding',emoji: '💼' },
+  { key: 'brody', name: 'Brody Bot',     role: 'BSPP Operations & Support',    emoji: '🏗️' },
+];
+
+const PLAN_DATA = {
+  launch: {
+    name: 'Launch',
+    features: ['Customer Service Bot','Scheduling Bot','Email Follow-up','Google Workspace','Auto API Provisioning','Live &lt; 1 hour'],
+  },
+  replace: {
+    name: 'Replace',
+    features: ['Everything in Launch','Sales & Lead Gen Bot','Social Media Bot','Email Marketing Bot','Team Assistant','ROI Dashboard','QuickBooks + Stripe'],
+  },
+  build: {
+    name: 'Build',
+    features: ['Everything in Replace','Multi-business deployment','Custom bot personalities','White-label ready','Priority support','Monthly review call','Dedicated onboarding'],
+  },
+};
+
+// ── Auth check ────────────────────────────────────────────────────────────────
+let currentUser = null;
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) {
+    window.location.href = 'login.html';
+    return;
+  }
+  currentUser = session.user;
+  document.getElementById('userEmail').textContent = currentUser.email;
+  await loadDashboard();
+  document.getElementById('loadingOverlay').classList.add('hide');
+}
+
+async function signOut() {
+  await sb.auth.signOut();
+  window.location.href = 'login.html';
+}
+
+// ── Load dashboard data ───────────────────────────────────────────────────────
+async function loadDashboard() {
+  const since = new Date();
+  since.setDate(since.getDate() - 30);
+
+  // Load profile
+  const { data: profile } = await sb
+    .from('profiles')
+    .select('*')
+    .eq('id', currentUser.id)
+    .single();
+
+  renderPlan(profile?.plan || 'replace');
+
+  // Load activity
+  const { data: activity, error } = await sb
+    .from('bot_activity')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .gte('created_at', since.toISOString())
+    .order('created_at', { ascending: false })
+    .limit(100);
+
+  if (!error && activity) {
+    renderStats(activity);
+    renderActivity(activity);
+    renderBots(activity);
+  } else {
+    renderStats([]);
+    renderActivity([]);
+    renderBots([]);
+  }
+
+  document.getElementById('lastUpdated').textContent =
+    'Last updated: ' + new Date().toLocaleTimeString();
+}
+
+async function refreshData() {
+  document.getElementById('lastUpdated').textContent = 'Refreshing...';
+  await loadDashboard();
+}
+
+// ── Render stats ──────────────────────────────────────────────────────────────
+function renderStats(activity) {
+  const messages = activity.filter(a => a.action_type === 'reply').length;
+  const leads    = activity.filter(a => a.action_type === 'lead').length;
+  const appts    = activity.filter(a => a.action_type === 'appointment').length;
+  const emails   = activity.filter(a => a.action_type === 'email').length;
+
+  document.getElementById('statMessages').textContent = messages.toLocaleString();
+  document.getElementById('statLeads').textContent    = leads.toLocaleString();
+  document.getElementById('statAppts').textContent    = appts.toLocaleString();
+  document.getElementById('statEmails').textContent   = emails.toLocaleString();
+
+  // Rough savings estimate: $15 per message handled, $25 per lead, $30 per appt, $2 per email
+  const savings = (messages * 15) + (leads * 25) + (appts * 30) + (emails * 2);
+  document.getElementById('savingsBig').textContent = '$' + savings.toLocaleString();
+}
+
+// ── Render bot cards ──────────────────────────────────────────────────────────
+function renderBots(activity) {
+  const grid = document.getElementById('botsGrid');
+  grid.innerHTML = '';
+
+  BOTS.forEach(bot => {
+    const botActivity = activity.filter(a => a.bot_name === bot.key);
+    const msgCount    = botActivity.filter(a => a.action_type === 'reply').length;
+    const lastItem    = botActivity[0];
+    const lastTime    = lastItem
+      ? timeAgo(new Date(lastItem.created_at))
+      : 'No activity yet';
+    const isOnline    = lastItem && (Date.now() - new Date(lastItem.created_at).getTime()) < 3600000;
+
+    grid.innerHTML += `
+      <div class="bot-card ${isOnline ? 'online' : 'offline'}">
+        <div class="bot-header">
+          <div class="bot-name">${bot.emoji} ${bot.name}</div>
+          <div class="bot-status ${isOnline ? 'online' : 'offline'}">${isOnline ? 'Active' : 'Idle'}</div>
+        </div>
+        <div class="bot-role">${bot.role}</div>
+        <div class="bot-stat">Messages: <strong>${msgCount}</strong> this month</div>
+        <div class="bot-last">Last active: ${lastTime}</div>
+      </div>`;
+  });
+}
+
+// ── Render activity feed ──────────────────────────────────────────────────────
+const ACTION_ICONS = {
+  reply:       { icon: '💬', cls: 'message',  label: 'Replied'           },
+  lead:        { icon: '🎯', cls: 'lead',     label: 'Lead captured'     },
+  appointment: { icon: '📅', cls: 'appt',     label: 'Appointment booked'},
+  email:       { icon: '📧', cls: 'email',    label: 'Email sent'        },
+};
+
+function renderActivity(activity) {
+  const list = document.getElementById('activityList');
+  document.getElementById('activityCount').textContent = activity.length + ' events';
+
+  if (!activity.length) {
+    list.innerHTML = '<div class="activity-empty">No activity yet. Your bots will log every message, lead, and appointment here once they start running.</div>';
+    return;
+  }
+
+  list.innerHTML = activity.slice(0, 50).map(item => {
+    const a   = ACTION_ICONS[item.action_type] || { icon: '⚡', cls: 'message', label: item.action_type };
+    const bot = BOTS.find(b => b.key === item.bot_name);
+    const txt = item.content ? item.content.slice(0, 80) + (item.content.length > 80 ? '...' : '') : a.label;
+    return `
+      <div class="activity-item">
+        <div class="activity-icon ${a.cls}">${a.icon}</div>
+        <div class="activity-body">
+          <div class="activity-text">${txt}</div>
+          <div class="activity-meta">${bot ? bot.name : item.bot_name} &nbsp;·&nbsp; ${timeAgo(new Date(item.created_at))}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Render plan ───────────────────────────────────────────────────────────────
+function renderPlan(planKey) {
+  const plan = PLAN_DATA[planKey] || PLAN_DATA.replace;
+  document.getElementById('planName').textContent = plan.name;
+  document.getElementById('planFeatures').innerHTML = plan.features
+    .map(f => `<li style="font-size:0.84rem; display:flex; align-items:flex-start; gap:0.4rem;"><span style="color:var(--teal); font-weight:700; flex-shrink:0;">✓</span><span>${f}</span></li>`)
+    .join('');
+}
+
+// ── Export ────────────────────────────────────────────────────────────────────
+async function exportActivity() {
+  const { data } = await sb
+    .from('bot_activity')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .order('created_at', { ascending: false });
+
+  if (!data || !data.length) { alert('No activity to export yet.'); return; }
+
+  const csv = ['Date,Bot,Type,Content']
+    .concat(data.map(r =>
+      `"${r.created_at}","${r.bot_name}","${r.action_type}","${(r.content||'').replace(/"/g,'""')}"`
+    )).join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'nocode-ai-activity.csv';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function timeAgo(date) {
+  const diff = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (diff < 60)   return diff + 's ago';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400)return Math.floor(diff/3600) + 'h ago';
+  return Math.floor(diff/86400) + 'd ago';
+}
+
+// ── Start ─────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

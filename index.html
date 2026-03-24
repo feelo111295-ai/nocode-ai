@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No Code-AI — Your Business Deserves a 24/7 AI Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:    #F4A300;
+      --gold2:   #FFD166;
+      --navy:    #0A1628;
+      --navy2:   #112240;
+      --navy3:   #1A3358;
+      --text:    #F8F9FF;
+      --muted:   #8892A4;
+      --teal:    #00C9A7;
+      --red:     #FF4D6D;
+      --card:    rgba(255,255,255,0.04);
+      --card2:   rgba(255,255,255,0.02);
+      --border:  rgba(244,163,0,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(244,163,0,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244,163,0,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: rgba(10,22,40,0.95);
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: 2px; color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      padding: 0.55rem 1.4rem; border-radius: 8px;
+      text-decoration: none; font-weight: 700; font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold2); }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 7rem 2rem 6rem;
+      background: radial-gradient(ellipse at 50% 0%, rgba(244,163,0,0.12) 0%, transparent 65%);
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(244,163,0,0.1);
+      border: 1px solid rgba(244,163,0,0.3);
+      color: var(--gold);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 0.35rem 1rem;
+      border-radius: 999px; margin-bottom: 1.8rem;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.95; letter-spacing: 2px;
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      font-size: 1.15rem; color: var(--muted);
+      max-width: 560px; margin: 0 auto 2.8rem; line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 0.9rem 2.4rem; border-radius: 10px;
+      text-decoration: none; font-weight: 700; font-size: 1rem;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1px solid rgba(244,163,0,0.35); color: var(--gold);
+      padding: 0.9rem 2.4rem; border-radius: 10px;
+      text-decoration: none; font-weight: 600; font-size: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(244,163,0,0.08); border-color: var(--gold); }
+
+    /* proof strip */
+    .proof-strip {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+      padding: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: rgba(244,163,0,0.03); position: relative; z-index: 1;
+    }
+    .proof-item { text-align: center; }
+    .proof-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--gold); line-height: 1; }
+    .proof-label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── Sections ── */
+    section { padding: 5.5rem 2rem; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .section-label {
+      text-align: center; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    h2 {
+      text-align: center; font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: 1px;
+      margin-bottom: 1rem; line-height: 1.1;
+    }
+    .subtitle {
+      text-align: center; color: var(--muted); font-size: 1rem;
+      max-width: 540px; margin: 0 auto 3.5rem; line-height: 1.7;
+    }
+
+    /* ── Who Is This For (3 Personas) ── */
+    .persona-section {
+      background: var(--card2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      max-width: 100%; padding: 5.5rem 2rem; position: relative; z-index: 1;
+    }
+    .persona-inner { max-width: 1100px; margin: 0 auto; }
+    .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .persona-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .persona-card:hover { border-color: rgba(244,163,0,0.45); transform: translateY(-3px); }
+    .persona-card.highlight { border-color: var(--gold); box-shadow: 0 0 40px rgba(244,163,0,0.12); }
+    .persona-emoji { font-size: 2.4rem; margin-bottom: 1rem; }
+    .persona-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 0.25rem 0.8rem; border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .persona-tag.gold { background: rgba(244,163,0,0.12); color: var(--gold); border: 1px solid rgba(244,163,0,0.3); }
+    .persona-tag.teal { background: rgba(0,201,167,0.1); color: var(--teal); border: 1px solid rgba(0,201,167,0.25); }
+    .persona-tag.red  { background: rgba(255,77,109,0.08); color: var(--red); border: 1px solid rgba(255,77,109,0.25); }
+    .persona-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.6rem; }
+    .persona-card .persona-desc { font-size: 0.92rem; color: var(--muted); margin-bottom: 1.4rem; line-height: 1.7; }
+    .persona-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.6rem; }
+    .persona-points li { font-size: 0.87rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+    .persona-points li::before { content: "→"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .persona-link {
+      display: inline-block; font-size: 0.88rem; font-weight: 700;
+      color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid rgba(244,163,0,0.35);
+      transition: border-color 0.2s;
+    }
+    .persona-link:hover { border-color: var(--gold); }
+
+    /* ── Features ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(244,163,0,0.45); transform: translateY(-3px); }
+    .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-card p  { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── How It Works ── */
+    .section-dark {
+      background: var(--card2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      max-width: 100%; padding: 5.5rem 2rem; position: relative; z-index: 1;
+    }
+    .section-dark-inner { max-width: 1100px; margin: 0 auto; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+    .step {
+      text-align: center; padding: 2rem 1.5rem;
+      background: var(--card); border-radius: 14px; border: 1px solid var(--border);
+    }
+    .step-num {
+      width: 52px; height: 52px;
+      background: rgba(244,163,0,0.12);
+      border: 1px solid rgba(244,163,0,0.4);
+      color: var(--gold); font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step p   { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── ROI Calculator ── */
+    .calc-wrap { margin-top: 2rem; }
+    .calc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .calc-tool {
+      border: 1px solid rgba(244,163,0,0.15); border-radius: 10px;
+      padding: 12px 14px; cursor: pointer; transition: all 0.2s; background: transparent;
+    }
+    .calc-tool:hover { border-color: rgba(244,163,0,0.35); }
+    .calc-tool.selected { border-color: var(--gold); background: rgba(244,163,0,0.06); }
+    .calc-tool-name { font-size: 13px; font-weight: 600; }
+    .calc-tool-cat  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .calc-tool-row  { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .calc-cost-input {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; color: var(--text); font-size: 13px;
+      padding: 3px 8px; width: 72px; text-align: right;
+    }
+    .calc-cost-input:focus { outline: none; border-color: var(--gold); }
+    .calc-total-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;
+    }
+    .calc-total-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .calc-total-val { font-size: 20px; font-weight: 700; color: var(--text); }
+    .calc-btn {
+      width: 100%; padding: 15px; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--gold); color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px;
+      transition: all 0.2s;
+    }
+    .calc-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+    .calc-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+    .calc-results { display: none; }
+    .calc-results.show { display: block; }
+    .savings-big {
+      text-align: center; padding: 36px 24px;
+      background: linear-gradient(135deg, rgba(244,163,0,0.09), transparent);
+      border: 1px solid rgba(244,163,0,0.2); border-radius: 16px; margin-bottom: 16px;
+    }
+    .savings-big-label { font-size: 12px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+    .savings-big-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 10vw, 100px); color: var(--gold); line-height: 1; }
+    .savings-big-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+    .savings-yearly { display: inline-block; margin-top: 12px; padding: 6px 18px; background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.25); border-radius: 999px; color: var(--teal); font-size: 13px; }
+    .value-hero-box {
+      text-align: center; padding: 32px 24px;
+      background: rgba(0,201,167,0.06); border: 1px solid rgba(0,201,167,0.2);
+      border-radius: 16px; margin-bottom: 16px;
+    }
+    .value-hero-eye { font-size: 11px; letter-spacing: 3px; color: var(--teal); text-transform: uppercase; margin-bottom: 10px; }
+    .value-hero-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(26px, 4vw, 40px); margin-bottom: 10px; }
+    .value-hero-h span { color: var(--gold); }
+    .value-hero-p { font-size: 14px; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.6; }
+    .unlock-bar {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 18px 20px; background: rgba(244,163,0,0.06);
+      border: 1px solid rgba(244,163,0,0.18); border-radius: 12px; margin-bottom: 16px;
+    }
+    .unlock-icon { font-size: 24px; flex-shrink: 0; }
+    .unlock-title { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+    .unlock-text { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .unlock-text strong { color: var(--text); }
+    .vs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .vs-box { border-radius: 12px; padding: 18px; text-align: center; }
+    .vs-box.theirs { background: rgba(255,77,109,0.07); border: 1px solid rgba(255,77,109,0.18); }
+    .vs-box.ours   { background: rgba(0,201,167,0.07); border: 1px solid rgba(0,201,167,0.18); }
+    .vs-lbl { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .vs-box.theirs .vs-lbl { color: var(--red); }
+    .vs-box.ours   .vs-lbl { color: var(--teal); }
+    .vs-amt { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 1; }
+    .vs-box.theirs .vs-amt { color: var(--red); }
+    .vs-box.ours   .vs-amt { color: var(--teal); }
+    .vs-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .breakdown-tbl { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+    .breakdown-hdr { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; padding: 10px 16px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+    .breakdown-r   { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
+    .breakdown-r:last-child { border-bottom: none; }
+    .br-name { font-weight: 600; }
+    .br-cat  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .br-cost { font-size: 13px; color: var(--red); text-align: right; white-space: nowrap; }
+    .br-repl { font-size: 11px; color: var(--teal); text-align: right; white-space: nowrap; }
+    .val-stack { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+    .val-stack-hdr { padding: 14px 16px; background: rgba(0,201,167,0.05); border-bottom: 1px solid rgba(0,201,167,0.1); }
+    .val-stack-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: var(--teal); margin-bottom: 2px; }
+    .val-stack-sub { font-size: 12px; color: var(--muted); }
+    .val-r { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
+    .val-r:last-child { border-bottom: none; }
+    .val-feat { font-weight: 600; }
+    .val-repl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .val-mkt  { font-size: 12px; color: var(--red); text-align: right; white-space: nowrap; }
+    .val-inc  { font-size: 12px; font-weight: 700; color: var(--teal); text-align: right; white-space: nowrap; }
+    .val-total { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: rgba(0,201,167,0.04); border-top: 1px solid rgba(0,201,167,0.12); }
+    .val-total-lbl { font-size: 13px; font-weight: 600; }
+    .val-total-mkt { font-size: 12px; color: var(--red); text-decoration: line-through; opacity: 0.7; }
+    .val-total-price { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--teal); line-height: 1; }
+    .cta-calc { text-align: center; padding: 32px; background: rgba(244,163,0,0.07); border: 1px solid rgba(244,163,0,0.2); border-radius: 16px; }
+    .cta-calc h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; margin-bottom: 8px; }
+    .cta-calc p { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+    .cta-price-line { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--gold); line-height: 1; margin-bottom: 16px; }
+    .cta-price-line span { font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--muted); font-weight: 400; }
+    .cta-go { display: inline-block; padding: 14px 40px; background: var(--gold); color: var(--navy); border-radius: 10px; font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; cursor: pointer; border: none; transition: all 0.2s; text-decoration: none; }
+    .cta-go:hover { background: var(--gold2); transform: translateY(-2px); }
+    .recalc-btn { margin-top: 12px; background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; display: block; margin-left: auto; margin-right: auto; }
+    .recalc-btn:hover { color: var(--text); }
+
+    /* ── Pricing ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; align-items: start;
+    }
+    .pricing-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); border-color: rgba(244,163,0,0.4); }
+    .pricing-card.featured {
+      border-color: var(--gold);
+      box-shadow: 0 0 40px rgba(244,163,0,0.15);
+    }
+    .popular-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--navy);
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 999px;
+    }
+    .pricing-persona {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .pricing-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem; }
+    .pricing-card .tagline { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .price-main { font-size: 2.8rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .price-main span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .price-divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 1.5rem 0; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; }
+    .feature-list li { font-size: 0.87rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+    .feature-list li::before { content: "✓"; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+    .pricing-btn {
+      display: block; text-align: center;
+      background: var(--gold); color: var(--navy);
+      padding: 0.85rem; border-radius: 9px;
+      text-decoration: none; font-weight: 700; font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .pricing-btn:hover { background: var(--gold2); }
+    .pricing-btn.ghost {
+      background: transparent; border: 1px solid rgba(244,163,0,0.35); color: var(--gold);
+    }
+    .pricing-btn.ghost:hover { background: rgba(244,163,0,0.08); }
+
+    /* ── Founder / Testimonials ── */
+    .founder-box {
+      background: var(--card);
+      border: 1px solid rgba(244,163,0,0.2);
+      border-left: 4px solid var(--gold);
+      border-radius: 14px; padding: 2rem 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .founder-box .quote { font-size: 1.05rem; color: var(--text); font-style: italic; line-height: 1.7; margin-bottom: 1rem; }
+    .founder-name { font-weight: 700; color: var(--gold); }
+    .founder-title { font-size: 0.85rem; color: var(--muted); }
+    .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .testimonial {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+    }
+    .stars { color: #fbbf24; font-size: 1rem; margin-bottom: 1rem; }
+    .testimonial p { font-size: 0.92rem; color: var(--muted); font-style: italic; margin-bottom: 1.2rem; line-height: 1.65; }
+    .testimonial-author { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+    .testimonial-biz    { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .faq-q {
+      width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+      padding: 1.3rem 1.5rem; color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .faq-q:hover { color: var(--gold); }
+    .faq-q .faq-arrow { color: var(--gold); font-size: 1.2rem; transition: transform 0.3s; flex-shrink: 0; }
+    .faq-q.open .faq-arrow { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 1.5rem;
+    }
+    .faq-a.open { max-height: 400px; padding: 0 1.5rem 1.3rem; }
+    .faq-a p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── Lead Form (Contact) ── */
+    .contact-section {
+      background: linear-gradient(135deg, rgba(244,163,0,0.08), rgba(244,163,0,0.02));
+      border-top: 1px solid rgba(244,163,0,0.2); border-bottom: 1px solid rgba(244,163,0,0.2);
+      max-width: 100%; padding: 5.5rem 2rem; position: relative; z-index: 1;
+    }
+    .contact-inner { max-width: 760px; margin: 0 auto; }
+    .contact-form {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(244,163,0,0.2);
+      border-radius: 20px; padding: 3rem;
+      margin-top: 2.5rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--muted); letter-spacing: 0.5px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; padding: 0.75rem 1rem;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { outline: none; border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: var(--navy2); }
+    .form-submit {
+      width: 100%; padding: 1rem; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--gold); color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 3px;
+      transition: all 0.2s; margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--gold2); transform: translateY(-2px); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-note { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem; }
+    .form-success {
+      display: none; text-align: center; padding: 2.5rem;
+      background: rgba(0,201,167,0.07); border: 1px solid rgba(0,201,167,0.2);
+      border-radius: 14px;
+    }
+    .form-success.show { display: block; }
+    .form-success h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--teal); margin-bottom: 0.5rem; }
+    .form-success p { color: var(--muted); font-size: 0.95rem; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 2.5rem 2rem;
+      color: var(--muted); font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media(max-width: 768px) {
+      .nav-links { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 1.8rem; }
+    }
+    @media(max-width: 600px) {
+      .vs-pair { grid-template-columns: 1fr; }
+      .breakdown-hdr, .breakdown-r, .val-r { grid-template-columns: 1fr auto; }
+      .br-repl, .val-inc { display: none; }
+      .calc-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="#" class="nav-logo">NO CODE<span>-AI</span></a>
+  <div class="nav-links">
+    <a href="#who-its-for">Who It's For</a>
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#savings">Savings</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#contact" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-badge">No Coding Required — Ever</div>
+  <h1>YOUR BUSINESS<br/>DESERVES A<br/><span>24/7 AI TEAM</span></h1>
+  <p>Whether you're just starting out, already running a business, or ready to build something bigger — No Code-AI deploys a full suite of intelligent bots across every part of your operation. Live in under an hour. No coding. No developers. No headaches.</p>
+  <div class="hero-btns">
+    <a href="#savings" class="btn-primary">Calculate My Savings</a>
+    <a href="#who-its-for" class="btn-ghost">Find Your Path</a>
+  </div>
+</div>
+
+<!-- proof strip -->
+<div class="proof-strip">
+  <div class="proof-item"><div class="proof-num">$607</div><div class="proof-label">avg market value of what's included</div></div>
+  <div class="proof-item"><div class="proof-num">$97</div><div class="proof-label">flat monthly price — everything included</div></div>
+  <div class="proof-item"><div class="proof-num">&lt;1HR</div><div class="proof-label">from sign-up to live bots</div></div>
+  <div class="proof-item"><div class="proof-num">0</div><div class="proof-label">lines of code required from you</div></div>
+</div>
+
+<!-- ── Who It's For (3 Personas) ── -->
+<div class="persona-section" id="who-its-for">
+  <div class="persona-inner">
+    <p class="section-label">Find Your Path</p>
+    <h2>THREE KINDS OF PEOPLE<br/>GET STARTED HERE</h2>
+    <p class="subtitle">No Code-AI isn't a one-size-fits-all tool. It's built for where you actually are — and where you want to go.</p>
+    <div class="persona-grid">
+
+      <div class="persona-card">
+        <div class="persona-emoji">🚀</div>
+        <div class="persona-tag gold">Just Starting Out</div>
+        <h3>Build Your Business on AI From Day One</h3>
+        <p class="persona-desc">You're new, scrappy, and smart. You don't want to pay for 10 tools you barely know how to use. Start with AI doing the heavy lifting from the jump — customer service, scheduling, follow-ups, and more — while you focus on getting clients.</p>
+        <ul class="persona-points">
+          <li>No expensive tool stack to build — one platform covers everything</li>
+          <li>Compete with businesses 10x your size from week one</li>
+          <li>AI learns your business as you grow</li>
+          <li>Zero coding, zero setup complexity</li>
+        </ul>
+        <a href="#pricing" class="persona-link">See the Starting Out plan →</a>
+      </div>
+
+      <div class="persona-card highlight">
+        <div class="persona-emoji">💼</div>
+        <div class="persona-tag teal">Already Made It</div>
+        <h3>Replace the Tool Stack You're Already Paying For</h3>
+        <p class="persona-desc">You've built something real. And you're probably paying $300–$800/month across tools that half-work, don't talk to each other, and still require you to babysit them. No Code-AI replaces all of it — one platform, one price, one place.</p>
+        <ul class="persona-points">
+          <li>Cancel Zendesk, HubSpot, Buffer, Mailchimp, Calendly — and more</li>
+          <li>Every bot knows your business, your voice, your customers</li>
+          <li>Runs 24/7 without your involvement</li>
+          <li>Use the ROI calculator to see your exact savings</li>
+        </ul>
+        <a href="#savings" class="persona-link">Calculate what you'd save →</a>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-emoji">🏗️</div>
+        <div class="persona-tag red">Want to Build Something</div>
+        <h3>Deploy AI for Clients. Build an Agency. Run Multiple Businesses.</h3>
+        <p class="persona-desc">You see the bigger picture. Maybe you want to resell AI services to local businesses. Maybe you're building a multi-location operation. Maybe you want to be the person in your area that everyone comes to for AI. This is your platform.</p>
+        <ul class="persona-points">
+          <li>White-label ready for resellers and agencies</li>
+          <li>Deploy separate AI teams for each client or location</li>
+          <li>Build an AI consulting business on top of No Code-AI</li>
+          <li>Priority support and dedicated onboarding for builders</li>
+        </ul>
+        <a href="#contact" class="persona-link">Talk to us about building →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Features ── -->
+<section id="features">
+  <p class="section-label">What You Get</p>
+  <h2>AN ENTIRE AI BUSINESS TEAM<br/>FOR ONE FLAT PRICE</h2>
+  <p class="subtitle">Every bot is configured around your business, your voice, and your goals — automatically. You just approve the connections.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3>Customer Service Bot</h3>
+      <p>Answers questions, handles objections, and captures leads 24/7. Replaces Zendesk, Freshdesk, and Intercom — at a fraction of the cost.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Sales &amp; Lead Gen Bot</h3>
+      <p>Qualifies leads, follows up automatically, books demos, and tracks your pipeline — all inside your Google Workspace. Your CRM is cancelled.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Social Media Bot</h3>
+      <p>Creates, schedules, and posts content across Facebook, Instagram, and TikTok. Replaces Buffer, Hootsuite, and Later automatically.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <h3>Appointment Scheduling Bot</h3>
+      <p>Checks your availability, books appointments, and sends reminders — synced to Google Calendar in real time. Calendly cancelled.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📧</div>
+      <h3>Email Marketing Bot</h3>
+      <p>Sends drip campaigns, newsletters, follow-ups, and review requests automatically. Replaces Mailchimp, Klaviyo, and Constant Contact.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>Internal Team Assistant</h3>
+      <p>Answers staff questions, handles onboarding, manages schedules, and keeps your team informed — without the back-and-forth.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔑</div>
+      <h3>Automatic API Provisioning</h3>
+      <p>The system creates and manages all its own API keys. You never touch a developer console. Just approve the OAuth connections — we handle everything else.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>ROI Dashboard</h3>
+      <p>See exactly what your bots are doing — leads captured, emails sent, posts published, appointments booked, and money saved. Updated in real time.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔗</div>
+      <h3>Connects to Everything</h3>
+      <p>Google Workspace, Facebook, Instagram, TikTok, YouTube, QuickBooks, Stripe, and any platform your business runs on — all connected automatically.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ── -->
+<div class="section-dark" id="how-it-works">
+  <div class="section-dark-inner">
+    <p class="section-label">The Process</p>
+    <h2>LIVE IN UNDER ONE HOUR</h2>
+    <p class="subtitle">No coding. No setup headaches. No developers. You answer questions — we handle everything else.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>AI Interview</h3>
+        <p>Our master AI asks smart questions about your business. The more you share, the smarter your bots. Takes about 5 minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>See Your Savings</h3>
+        <p>Before we even start, you see exactly how much No Code-AI saves you versus your current tools. Specific numbers. Your actual subscriptions.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Approve Connections</h3>
+        <p>Click to connect your platforms — one OAuth approval at a time. No credentials, no API keys, no configuration. Just click Allow.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Bots Go Live</h3>
+        <p>Your full AI team activates in the background. Within 10 minutes your first bot is live, answering real questions about your real business.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Savings Calculator ── -->
+<section id="savings">
+  <p class="section-label">ROI Calculator</p>
+  <h2>WHAT IS YOUR BUSINESS<br/>ACTUALLY PAYING FOR?</h2>
+  <p class="subtitle">Select every tool you currently pay for. We'll show you exactly what you save — or everything you're getting that you don't have yet.</p>
+
+  <div class="calc-wrap">
+    <div id="calc-select">
+      <div class="calc-grid" id="calcGrid"></div>
+      <div class="calc-total-bar">
+        <span class="calc-total-label">Your current monthly spend</span>
+        <span class="calc-total-val" id="calcTotal">$0 / mo</span>
+      </div>
+      <button class="calc-btn" id="calcBtn" disabled onclick="showCalcResults()">SHOW ME WHAT I'M GETTING →</button>
+    </div>
+    <div class="calc-results" id="calcResults"></div>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<div class="section-dark" id="testimonials">
+  <div class="section-dark-inner">
+    <p class="section-label">Proof It Works</p>
+    <h2>REAL BUSINESSES. REAL RESULTS.</h2>
+    <p class="subtitle">The founder cancelled his first subscription on day one. Your results will follow.</p>
+
+    <div class="founder-box">
+      <div class="quote">"Within 24 hours of connecting Google Workspace, my bots had already built me a complete CRM — automatically. I cancelled QuoteIQ the same day. $30/month gone, immediately. That's when I knew this was real. I built No Code-AI because I needed it myself. Running Burnt Store Pressure Pros, I was drowning in tools that didn't work together. Now one platform runs both businesses while I focus on growth."</div>
+      <div class="founder-name">Felix L.</div>
+      <div class="founder-title">Founder, No Code-AI &nbsp;·&nbsp; Owner, Burnt Store Pressure Pros</div>
+    </div>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"I used to miss customer messages overnight constantly. Now my bot answers them before I even wake up. Booked two jobs last week while I was sleeping."</p>
+        <div class="testimonial-author">No Code-AI Client</div>
+        <div class="testimonial-biz">Home Services Business Owner</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"Setup was shockingly easy. The bot already knows my products, my prices, and how I talk to customers. It's like I cloned myself."</p>
+        <div class="testimonial-author">No Code-AI Client</div>
+        <div class="testimonial-biz">E-Commerce Store Owner</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"It paid for itself in the first week. I cancelled four subscriptions in the first month. It's like having a full-time team without the payroll."</p>
+        <div class="testimonial-author">No Code-AI Client</div>
+        <div class="testimonial-biz">Service Business Owner</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Pricing ── -->
+<section id="pricing">
+  <p class="section-label">Pricing</p>
+  <h2>ONE PRICE. THREE PATHS.<br/>ALL $97/MONTH.</h2>
+  <p class="subtitle">No setup fees. No surprise bills. No tiers that hide the good stuff. Just $97/month — choose the path that fits where you are right now.</p>
+
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-persona">Just Starting Out</div>
+      <h3>Launch</h3>
+      <p class="tagline">Build your business on AI from day one. No expensive tool stack. Just results.</p>
+      <p class="price-main">$97 <span>/ month</span></p>
+      <hr class="price-divider" />
+      <ul class="feature-list">
+        <li>Customer Service Bot (24/7 coverage)</li>
+        <li>Appointment Scheduling Bot</li>
+        <li>Email Follow-up Automation</li>
+        <li>Google Workspace connected</li>
+        <li>Automatic API provisioning</li>
+        <li>AI learns your business as you grow</li>
+        <li>Live in under 1 hour — no coding</li>
+      </ul>
+      <a href="#contact" class="pricing-btn ghost">Get Started Free</a>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="popular-badge">Most Popular</div>
+      <div class="pricing-persona">Already Made It</div>
+      <h3>Replace</h3>
+      <p class="tagline">Cancel your entire tool stack. Replace it with one intelligent platform that does everything better.</p>
+      <p class="price-main">$97 <span>/ month</span></p>
+      <hr class="price-divider" />
+      <ul class="feature-list">
+        <li>Everything in Launch</li>
+        <li>Sales &amp; Lead Gen Bot (replaces CRM)</li>
+        <li>Social Media Bot (FB, IG, TikTok)</li>
+        <li>Email Marketing Bot (replaces Mailchimp/Klaviyo)</li>
+        <li>Internal Team Assistant</li>
+        <li>ROI Dashboard (live, real-time)</li>
+        <li>QuickBooks + Stripe connected</li>
+      </ul>
+      <a href="#contact" class="pricing-btn">Get Started — Save Immediately</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-persona">Want to Build Something</div>
+      <h3>Build</h3>
+      <p class="tagline">Deploy for clients. Run multiple businesses. Build your AI agency on top of No Code-AI.</p>
+      <p class="price-main">$97 <span>/ month</span></p>
+      <hr class="price-divider" />
+      <ul class="feature-list">
+        <li>Everything in Replace</li>
+        <li>Multi-business / multi-client deployment</li>
+        <li>Custom bot personalities per business</li>
+        <li>White-label ready for agencies</li>
+        <li>Priority support</li>
+        <li>Monthly performance review call</li>
+        <li>Dedicated onboarding + custom integrations</li>
+      </ul>
+      <a href="#contact" class="pricing-btn ghost">Talk to Us About Building</a>
+    </div>
+
+  </div>
+
+  <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-top:2rem;">
+    All plans include the full bot suite &nbsp;·&nbsp; No setup fees &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; Live in under 1 hour
+  </p>
+</section>
+
+<!-- ── FAQ ── -->
+<div class="section-dark" id="faq">
+  <div class="section-dark-inner">
+    <p class="section-label">Common Questions</p>
+    <h2>EVERYTHING YOU WANT TO KNOW</h2>
+    <p class="subtitle" style="margin-bottom: 2.5rem;">Real answers. No fluff.</p>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I need to know how to code?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Not even close. No Code-AI is built specifically so that business owners — not developers — can deploy an entire AI team. The most technical thing you'll do is click "Allow" on an OAuth screen. Everything else is handled automatically.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How does it actually get set up so fast?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Our master AI interviews you about your business — your services, your tone, your customers, your goals. It uses that to pre-configure your entire bot suite. Then you approve the platform connections (Google, Facebook, etc.) one by one. Once those are connected, your bots go live automatically. The whole process takes under an hour.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What tools does it actually replace?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Zendesk, Freshdesk, Intercom, HubSpot, Pipedrive, Salesforce, Buffer, Hootsuite, Later, Mailchimp, Klaviyo, Constant Contact, Calendly, Acuity Scheduling, Databox, and more. Use the ROI Calculator above to see your specific savings based on what you actually pay for.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          I'm just starting out — is this worth it before I have customers?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>100%. Starting with AI from day one means you compete at a level that took established businesses years to reach. Your customer service is instant. Your follow-ups never slip. Your social media runs itself. You look and operate like a company 10x your size from the very first week. The businesses that win in the next 5 years are the ones that built on AI early.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I use this to run AI for other businesses or clients?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes — and this is one of the most exciting use cases. No Code-AI is designed to be deployed for multiple businesses. If you want to become the AI person in your area — offering AI automation services to local businesses — this is your platform. Talk to us directly and we'll help you build that operation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Will the bots sound like me or like a robot?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>They're trained on your voice and your business. The more you tell the AI during setup, the more your bots sound like you. Customers regularly don't realize they're talking to a bot. You can also review and adjust the tone at any time.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What happens if I want to cancel?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Cancel anytime, no questions asked. There are no contracts, no cancellation fees, and no minimum commitments. We're confident that once your bots are live, you won't want to cancel — but we'll never hold you hostage.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is $97 really the price? What's the catch?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <p>$97/month. That's it. No setup fees, no per-seat pricing, no "premium features" hidden behind a higher tier. The catch — if you'd call it that — is that AI is the infrastructure, so we're able to offer this at a price that would be impossible with traditional software. The tools this replaces cost most businesses $300–$800/month separately.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Contact / Lead Form ── -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <p class="section-label" style="text-align:center;">Get Started</p>
+    <h2 style="text-align:center;">READY TO PUT YOUR<br/>BUSINESS ON AUTOPILOT?</h2>
+    <p class="subtitle" style="margin-bottom: 0;">Tell us about your business and we'll reach out within 24 hours to get your bots live. No sales pressure — just answers and a path forward.</p>
+
+    <div class="contact-form" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name *</label>
+          <input type="text" id="fname" placeholder="Felix" required />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="L." />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" placeholder="you@yourbusiness.com" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="(941) 555-0100" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bizname">Business Name *</label>
+        <input type="text" id="bizname" placeholder="Your Business LLC" required />
+      </div>
+      <div class="form-group">
+        <label for="persona">Which path fits you best? *</label>
+        <select id="persona" required>
+          <option value="" disabled selected>Select your situation...</option>
+          <option value="starting">Just Starting Out — I want to build on AI from day one</option>
+          <option value="established">Already Made It — I want to replace my existing tool stack</option>
+          <option value="builder">Want to Build Something — I want to deploy AI for clients or multiple businesses</option>
+          <option value="unsure">Not sure yet — I just want to learn more</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">What's the biggest thing slowing your business down right now? (optional)</label>
+        <textarea id="message" placeholder="Ex: I miss leads when I'm on job sites. My social media is dead. I'm paying for tools I barely use..."></textarea>
+      </div>
+      <button class="form-submit" id="formSubmit" onclick="submitForm()">SEND IT — LET'S GET YOUR BOTS LIVE</button>
+      <p class="form-note">We respond within 24 hours. No spam. No pressure. Just real help.</p>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <h3>YOU'RE IN.</h3>
+      <p>We got your message and we'll be in touch within 24 hours.<br/>In the meantime, <a href="https://discord.gg/97F5Ywyk" style="color:var(--gold)">join us on Discord</a> — ask anything, get answers fast.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <p style="font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:2px; color:var(--gold); margin-bottom:0.5rem;">NO CODE-AI</p>
+  <p>&copy; 2026 No Code-AI &nbsp;·&nbsp; Questions? <a href="https://discord.gg/97F5Ywyk">Find us on Discord</a> &nbsp;·&nbsp; Powered by OpenClaw</p>
+</footer>
+
+<script>
+// ── ROI Calculator ────────────────────────────────────────────────────────────
+const PRICE = 97;
+const TOOLS = [
+  { id:'zendesk',   name:'Zendesk',             cat:'Customer Support',  cost:55  },
+  { id:'freshdesk', name:'Freshdesk',            cat:'Customer Support',  cost:35  },
+  { id:'intercom',  name:'Intercom',             cat:'Customer Support',  cost:74  },
+  { id:'tidio',     name:'Tidio / Live Chat',    cat:'Customer Support',  cost:29  },
+  { id:'hubspot',   name:'HubSpot CRM',          cat:'CRM & Sales',       cost:90  },
+  { id:'pipedrive', name:'Pipedrive',            cat:'CRM & Sales',       cost:49  },
+  { id:'zoho',      name:'Zoho CRM',             cat:'CRM & Sales',       cost:35  },
+  { id:'quoteiq',   name:'QuoteIQ / Other CRM',  cat:'CRM & Sales',       cost:30  },
+  { id:'buffer',    name:'Buffer',               cat:'Social Media',      cost:18  },
+  { id:'hootsuite', name:'Hootsuite',            cat:'Social Media',      cost:99  },
+  { id:'later',     name:'Later',                cat:'Social Media',      cost:25  },
+  { id:'sprout',    name:'Sprout Social',        cat:'Social Media',      cost:249 },
+  { id:'mailchimp', name:'Mailchimp',            cat:'Email Marketing',   cost:45  },
+  { id:'klaviyo',   name:'Klaviyo',              cat:'Email Marketing',   cost:70  },
+  { id:'constant',  name:'Constant Contact',     cat:'Email Marketing',   cost:35  },
+  { id:'calendly',  name:'Calendly',             cat:'Scheduling',        cost:16  },
+  { id:'acuity',    name:'Acuity Scheduling',    cat:'Scheduling',        cost:20  },
+  { id:'podium',    name:'Podium',               cat:'Reputation',        cost:289 },
+  { id:'birdeye',   name:'Birdeye',              cat:'Reputation',        cost:199 },
+  { id:'databox',   name:'Databox',              cat:'Reporting',         cost:59  },
+  { id:'va',        name:'Virtual Assistant',    cat:'Labor',             cost:800 },
+  { id:'chatgpt',   name:'ChatGPT Plus/Team',    cat:'AI Tools',          cost:25  },
+  { id:'jasper',    name:'Jasper / Copy.ai',     cat:'AI Copywriting',    cost:49  },
+];
+const TOOL_REPS = {
+  zendesk:'Customer Service Bot', freshdesk:'Customer Service Bot', intercom:'Customer Service Bot',
+  tidio:'Customer Service Bot', hubspot:'Sales Bot + Google Workspace', pipedrive:'Sales Bot + Google Workspace',
+  zoho:'Sales Bot + Google Workspace', quoteiq:'Sales Bot + Google Workspace', buffer:'Social Media Bot',
+  hootsuite:'Social Media Bot', later:'Social Media Bot', sprout:'Social Media Bot',
+  mailchimp:'Email Marketing Bot', klaviyo:'Email Marketing Bot', constant:'Email Marketing Bot',
+  calendly:'Scheduling Bot', acuity:'Scheduling Bot', podium:'Customer Service Bot',
+  birdeye:'Customer Service Bot', databox:'ROI Dashboard', va:'Full Bot Suite',
+  chatgpt:'Built-in AI Engine', jasper:'Social + Email Bots',
+};
+const VALUE_STACK = [
+  { feat:'Customer Service Bot',    rep:'Zendesk / Freshdesk / Tidio',           mkt:55  },
+  { feat:'Sales & Lead Gen Bot',    rep:'HubSpot / Pipedrive / any CRM',         mkt:75  },
+  { feat:'Social Media Bot',        rep:'Buffer / Hootsuite / Later',             mkt:49  },
+  { feat:'Email Marketing Bot',     rep:'Mailchimp / Klaviyo / Constant Contact', mkt:45  },
+  { feat:'Scheduling Bot',          rep:'Calendly / Acuity',                      mkt:20  },
+  { feat:'Internal Team Assistant', rep:'Notion AI / manual onboarding',          mkt:30  },
+  { feat:'ROI Dashboard',           rep:'Databox / manual reporting',              mkt:59  },
+  { feat:'Auto API Provisioning',   rep:'Developer setup fees',                   mkt:200 },
+  { feat:'Google Workspace Sync',   rep:'Separate integration tools',             mkt:25  },
+  { feat:'Social Platform AI',      rep:'Social inbox management tools',          mkt:49  },
+];
+const VALUE_TOTAL = VALUE_STACK.reduce((s,v)=>s+v.mkt,0);
+let sel = {};
+TOOLS.forEach(t => { sel[t.id]={checked:false,cost:t.cost}; });
+
+function buildCalc() {
+  const g = document.getElementById('calcGrid');
+  g.innerHTML = '';
+  TOOLS.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'calc-tool'; d.id = 'ct-'+t.id;
+    d.onclick = ()=>toggleCalc(t.id);
+    d.innerHTML = `<div class="calc-tool-name">${t.name}</div><div class="calc-tool-cat">${t.cat}</div>
+    <div class="calc-tool-row"><span style="font-size:11px;color:var(--muted)">$/mo</span>
+    <input class="calc-cost-input" type="number" id="cc-${t.id}" value="${t.cost}" oninput="updCost('${t.id}',this.value)" onclick="event.stopPropagation()"></div>`;
+    g.appendChild(d);
+  });
+}
+function toggleCalc(id) {
+  sel[id].checked = !sel[id].checked;
+  document.getElementById('ct-'+id).classList.toggle('selected', sel[id].checked);
+  updTotal();
+}
+function updCost(id,v) { sel[id].cost = parseFloat(v)||0; updTotal(); }
+function updTotal() {
+  let t=0, c=0;
+  TOOLS.forEach(x=>{ if(sel[x.id].checked){t+=sel[x.id].cost;c++;} });
+  document.getElementById('calcTotal').textContent = '$'+t.toLocaleString()+' / mo';
+  document.getElementById('calcBtn').disabled = c===0;
+}
+function showCalcResults() {
+  let cur=0; const picked=TOOLS.filter(t=>sel[t.id].checked);
+  picked.forEach(t=>{cur+=sel[t.id].cost;});
+  const saves=cur-PRICE; const isSaver=saves>0;
+  const res=document.getElementById('calcResults');
+  res.innerHTML='';
+  if(isSaver) {
+    const yr=saves*12;
+    res.innerHTML=`
+      <div class="savings-big">
+        <div class="savings-big-label">Your monthly savings with No Code-AI</div>
+        <div class="savings-big-num">$${saves.toLocaleString()}</div>
+        <div class="savings-big-sub">every single month</div>
+        <div class="savings-yearly">That's $${yr.toLocaleString()} back in your pocket every year</div>
+      </div>
+      <div class="vs-pair">
+        <div class="vs-box theirs"><div class="vs-lbl">What You Pay Now</div><div class="vs-amt">$${cur.toLocaleString()}</div><div class="vs-sub">per month across all tools</div></div>
+        <div class="vs-box ours"><div class="vs-lbl">With No Code-AI</div><div class="vs-amt">$97</div><div class="vs-sub">per month, everything included</div></div>
+      </div>
+      ${mkBreakdown(picked)}${mkValStack(false)}${mkCTA(true,cur,saves)}`;
+  } else {
+    res.innerHTML=`
+      <div class="value-hero-box">
+        <div class="value-hero-eye">HERE'S WHAT $97 ACTUALLY GETS YOU</div>
+        <div class="value-hero-h">YOU'RE PAYING <span>$${cur}/MO</span> NOW.<br/>HERE'S WHAT YOU'RE MISSING.</div>
+        <div class="value-hero-p">You may only be paying $${cur}/month today — but No Code-AI gives you an entire AI-powered business team for one flat price.</div>
+      </div>
+      ${mkUnlock(cur)}${mkValStack(true)}${mkBreakdown(picked)}${mkCTA(false,cur,saves)}`;
+  }
+  document.getElementById('calc-select').style.display='none';
+  res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function mkBreakdown(tools) {
+  if(!tools.length) return '';
+  return `<div class="breakdown-tbl" style="margin-bottom:14px">
+    <div class="breakdown-hdr"><span>Tool</span><span>Your Cost</span><span>Replaced By</span></div>
+    ${tools.map(t=>`<div class="breakdown-r"><div><div class="br-name">${t.name}</div><div class="br-cat">${t.cat}</div></div><div class="br-cost">-$${sel[t.id].cost}/mo</div><div class="br-repl">→ ${TOOL_REPS[t.id]||'No Code-AI Bot'}</div></div>`).join('')}
+  </div>`;
+}
+function mkValStack(emph) {
+  return `<div class="val-stack" style="margin-bottom:14px">
+    <div class="val-stack-hdr">
+      <div class="val-stack-ttl">${emph?'EVERYTHING IN YOUR $97/MONTH':'AND EVERYTHING ELSE YOU\'RE GETTING'}</div>
+      <div class="val-stack-sub">${emph?'Compare to buying each tool separately.':'You\'re not just replacing tools — you\'re upgrading your entire business.'}</div>
+    </div>
+    ${VALUE_STACK.map(v=>`<div class="val-r"><div><div class="val-feat">${v.feat}</div><div class="val-repl">Replaces: ${v.rep}</div></div><div class="val-mkt">$${v.mkt}/mo</div><div class="val-inc">✓ INCLUDED</div></div>`).join('')}
+    <div class="val-total"><div class="val-total-lbl">Total market value included</div><div><div class="val-total-mkt">$${VALUE_TOTAL}/mo separately</div><div class="val-total-price">YOUR PRICE: $97</div></div></div>
+  </div>`;
+}
+function mkUnlock(cur) {
+  const diff=PRICE-cur;
+  return `<div class="unlock-bar"><div class="unlock-icon">💡</div><div>
+    <div class="unlock-title">You're paying $${cur}/mo today — No Code-AI is $${diff} more.</div>
+    <div class="unlock-text">That extra <strong>$${diff}/month</strong> gives you <strong>${VALUE_STACK.length} AI-powered capabilities</strong> your competitors are paying thousands for — or not using at all.</div>
+  </div></div>`;
+}
+function mkCTA(isSaver,cur,saves) {
+  const h=isSaver?`SAVE $${saves.toLocaleString()} EVERY MONTH`:`GET YOUR FULL AI BUSINESS TEAM`;
+  const d=isSaver?`Replace ${TOOLS.filter(t=>sel[t.id].checked).length} tools with one intelligent platform. No coding. Live in under an hour.`:`For just $97/month, deploy a full AI team across every part of your business — starting today.`;
+  return `<div class="cta-calc"><h3>${h}</h3><p>${d}</p>
+    <div class="cta-price-line">$97<span>/month</span></div>
+    <a href="#contact" class="cta-go">START TODAY — LIVE IN 1 HOUR</a>
+    <button class="recalc-btn" onclick="resetCalc()">← Recalculate with different tools</button>
+  </div>`;
+}
+function resetCalc() {
+  TOOLS.forEach(t=>{sel[t.id]={checked:false,cost:t.cost};});
+  buildCalc(); updTotal();
+  document.getElementById('calcResults').classList.remove('show');
+  document.getElementById('calcResults').innerHTML='';
+  document.getElementById('calc-select').style.display='block';
+}
+buildCalc();
+
+// ── FAQ ───────────────────────────────────────────────────────────────────────
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+  if (!isOpen) {
+    answer.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+// ── Lead Form → Discord Webhook ──────────────────────────────────────────────
+async function submitForm() {
+  const fname    = document.getElementById('fname').value.trim();
+  const lname    = document.getElementById('lname').value.trim();
+  const email    = document.getElementById('email').value.trim();
+  const phone    = document.getElementById('phone').value.trim();
+  const bizname  = document.getElementById('bizname').value.trim();
+  const persona  = document.getElementById('persona').value;
+  const message  = document.getElementById('message').value.trim();
+
+  if (!fname || !email || !bizname || !persona) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  const btn = document.getElementById('formSubmit');
+  btn.disabled = true;
+  btn.textContent = 'SENDING...';
+
+  const personaLabels = {
+    starting:    'Just Starting Out',
+    established: 'Already Made It',
+    builder:     'Want to Build Something',
+    unsure:      'Not Sure Yet',
+  };
+
+  const payload = {
+    username: 'No Code-AI Lead Form',
+    avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png',
+    embeds: [{
+      title: '🔥 New Lead — No Code-AI',
+      color: 0xF4A300,
+      fields: [
+        { name: 'Name',     value: `${fname} ${lname}`.trim(), inline: true },
+        { name: 'Email',    value: email,    inline: true },
+        { name: 'Phone',    value: phone || '—', inline: true },
+        { name: 'Business', value: bizname,  inline: true },
+        { name: 'Path',     value: personaLabels[persona] || persona, inline: true },
+        { name: 'Message',  value: message || '(no message)', inline: false },
+      ],
+      footer: { text: 'nocode-ai.com lead form' },
+      timestamp: new Date().toISOString(),
+    }]
+  };
+
+  try {
+    await fetch('https://discord.com/api/webhooks/1485824517115740261/kZFMUSrzqZq_N9rq6-adjLmjc2P73h_6Kalr8TCi4858J8tFIeLqNqiDh5ILQGSEpnKw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'SEND IT — LET\'S GET YOUR BOTS LIVE';
+    alert('Something went wrong. Please try again or reach us on Discord.');
+  }
+}
+</script>
+</body>
+</html>

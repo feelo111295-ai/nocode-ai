@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No Code-AI — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #F4A300; --gold2: #FFD166;
+      --navy: #0A1628; --navy2: #112240;
+      --text: #F8F9FF; --muted: #8892A4;
+      --teal: #00C9A7; --red: #FF4D6D;
+      --border: rgba(244,163,0,0.15);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--navy); color: var(--text);
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(244,163,0,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244,163,0,0.025) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    /* Nav */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: rgba(10,22,40,0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: relative; z-index: 10;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: 2px; color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-back { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    /* Main */
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 1.5rem; position: relative; z-index: 1;
+    }
+    .auth-card {
+      width: 100%; max-width: 440px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(244,163,0,0.2);
+      border-radius: 20px; padding: 2.8rem;
+    }
+    .auth-logo {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .auth-logo h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; letter-spacing: 3px; color: var(--gold);
+      line-height: 1;
+    }
+    .auth-logo h1 span { color: var(--text); }
+    .auth-logo p { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
+    /* Tabs */
+    .auth-tabs {
+      display: flex; background: rgba(255,255,255,0.04);
+      border-radius: 10px; padding: 4px; margin-bottom: 1.8rem;
+    }
+    .auth-tab {
+      flex: 1; padding: 0.6rem; border: none; background: none;
+      color: var(--muted); font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      border-radius: 8px; transition: all 0.2s;
+    }
+    .auth-tab.active {
+      background: var(--gold); color: var(--navy);
+    }
+    /* Form */
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; }
+    .form-group input {
+      width: 100%;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; padding: 0.75rem 1rem;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus { outline: none; border-color: var(--gold); }
+    .form-group input::placeholder { color: var(--muted); }
+    .form-submit {
+      width: 100%; padding: 0.9rem; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--gold); color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 3px;
+      transition: all 0.2s; margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--gold2); transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .auth-divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.2rem 0; color: var(--muted); font-size: 0.8rem;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07);
+    }
+    .auth-error {
+      background: rgba(255,77,109,0.08); border: 1px solid rgba(255,77,109,0.2);
+      border-radius: 8px; padding: 0.75rem 1rem;
+      color: var(--red); font-size: 0.85rem; margin-bottom: 1rem;
+      display: none;
+    }
+    .auth-error.show { display: block; }
+    .auth-success {
+      background: rgba(0,201,167,0.08); border: 1px solid rgba(0,201,167,0.2);
+      border-radius: 8px; padding: 0.75rem 1rem;
+      color: var(--teal); font-size: 0.85rem; margin-bottom: 1rem;
+      display: none;
+    }
+    .auth-success.show { display: block; }
+    .auth-note { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 1.2rem; }
+    .auth-note a { color: var(--gold); text-decoration: none; }
+    /* Panel visibility */
+    #signupPanel { display: none; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">NO CODE<span>-AI</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+<main>
+  <div class="auth-card">
+    <div class="auth-logo">
+      <h1>NO CODE<span>-AI</span></h1>
+      <p>Your AI business team — sign in to your dashboard</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="signinTab" onclick="switchTab('signin')">Sign In</button>
+      <button class="auth-tab" id="signupTab" onclick="switchTab('signup')">Create Account</button>
+    </div>
+
+    <div id="errorMsg" class="auth-error"></div>
+    <div id="successMsg" class="auth-success"></div>
+
+    <!-- Sign In -->
+    <div id="signinPanel">
+      <div class="form-group">
+        <label for="siEmail">Email Address</label>
+        <input type="email" id="siEmail" placeholder="you@yourbusiness.com" />
+      </div>
+      <div class="form-group">
+        <label for="siPassword">Password</label>
+        <input type="password" id="siPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')signIn()" />
+      </div>
+      <button class="form-submit" id="signinBtn" onclick="signIn()">SIGN IN</button>
+      <p class="auth-note" style="margin-top:1rem;">
+        <a href="#" onclick="forgotPassword()">Forgot your password?</a>
+      </p>
+    </div>
+
+    <!-- Sign Up -->
+    <div id="signupPanel">
+      <div class="form-group">
+        <label for="suName">Your Name</label>
+        <input type="text" id="suName" placeholder="Felix L." />
+      </div>
+      <div class="form-group">
+        <label for="suBiz">Business Name</label>
+        <input type="text" id="suBiz" placeholder="Your Business LLC" />
+      </div>
+      <div class="form-group">
+        <label for="suEmail">Email Address</label>
+        <input type="email" id="suEmail" placeholder="you@yourbusiness.com" />
+      </div>
+      <div class="form-group">
+        <label for="suPassword">Password (min 8 characters)</label>
+        <input type="password" id="suPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')signUp()" />
+      </div>
+      <button class="form-submit" id="signupBtn" onclick="signUp()">CREATE ACCOUNT</button>
+    </div>
+
+    <p class="auth-note">
+      By signing in you agree to our terms. &nbsp;
+      <a href="https://discord.gg/97F5Ywyk">Need help? Discord →</a>
+    </p>
+  </div>
+</main>
+
+<script>
+// ── Supabase init ─────────────────────────────────────────────────────────────
+const SUPABASE_URL  = 'https://vcvjzinpkefsvcmwetcl.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_bTd0Bi-4eL50nJgaweXs3g_O2M7wOe4';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// Redirect if already logged in
+sb.auth.getSession().then(({ data: { session } }) => {
+  if (session) window.location.href = 'dashboard.html';
+});
+
+// ── UI helpers ────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.getElementById('signinPanel').style.display = tab === 'signin' ? 'block' : 'none';
+  document.getElementById('signupPanel').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('signinTab').classList.toggle('active', tab === 'signin');
+  document.getElementById('signupTab').classList.toggle('active', tab === 'signup');
+  hideMessages();
+}
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg; el.classList.add('show');
+  document.getElementById('successMsg').classList.remove('show');
+}
+function showSuccess(msg) {
+  const el = document.getElementById('successMsg');
+  el.textContent = msg; el.classList.add('show');
+  document.getElementById('errorMsg').classList.remove('show');
+}
+function hideMessages() {
+  document.getElementById('errorMsg').classList.remove('show');
+  document.getElementById('successMsg').classList.remove('show');
+}
+function setLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  btn.disabled = loading;
+  if (loading) btn.textContent = 'PLEASE WAIT...';
+}
+
+// ── Sign In ───────────────────────────────────────────────────────────────────
+async function signIn() {
+  const email    = document.getElementById('siEmail').value.trim();
+  const password = document.getElementById('siPassword').value;
+  if (!email || !password) { showError('Please enter your email and password.'); return; }
+  setLoading('signinBtn', true);
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    showError(error.message);
+    document.getElementById('signinBtn').disabled = false;
+    document.getElementById('signinBtn').textContent = 'SIGN IN';
+  } else {
+    window.location.href = 'dashboard.html';
+  }
+}
+
+// ── Sign Up ───────────────────────────────────────────────────────────────────
+async function signUp() {
+  const name     = document.getElementById('suName').value.trim();
+  const biz      = document.getElementById('suBiz').value.trim();
+  const email    = document.getElementById('suEmail').value.trim();
+  const password = document.getElementById('suPassword').value;
+  if (!name || !email || !password) { showError('Please fill in all fields.'); return; }
+  if (password.length < 8) { showError('Password must be at least 8 characters.'); return; }
+  setLoading('signupBtn', true);
+  const { data, error } = await sb.auth.signUp({
+    email, password,
+    options: { data: { full_name: name, business_name: biz } }
+  });
+  if (error) {
+    showError(error.message);
+    document.getElementById('signupBtn').disabled = false;
+    document.getElementById('signupBtn').textContent = 'CREATE ACCOUNT';
+  } else {
+    showSuccess('Account created! Check your email to confirm, then sign in.');
+    document.getElementById('signupBtn').textContent = 'CREATE ACCOUNT';
+    document.getElementById('signupBtn').disabled = false;
+    switchTab('signin');
+  }
+}
+
+// ── Forgot Password ───────────────────────────────────────────────────────────
+async function forgotPassword() {
+  const email = document.getElementById('siEmail').value.trim();
+  if (!email) { showError('Enter your email address above first.'); return; }
+  await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/dashboard.html' });
+  showSuccess('Password reset email sent! Check your inbox.');
+}
+</script>
+</body>
+</html>
