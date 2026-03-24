@@ -396,7 +396,6 @@ async function loadDashboard() {
   const { data: activity, error } = await sb
     .from('bot_activity')
     .select('*')
-    .eq('user_id', currentUser.id)
     .gte('created_at', since.toISOString())
     .order('created_at', { ascending: false })
     .limit(100);
@@ -510,7 +509,6 @@ async function exportActivity() {
   const { data } = await sb
     .from('bot_activity')
     .select('*')
-    .eq('user_id', currentUser.id)
     .order('created_at', { ascending: false });
 
   if (!data || !data.length) { alert('No activity to export yet.'); return; }
