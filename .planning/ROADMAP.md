@@ -26,7 +26,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. When a bot logs `action_type = 'lead'` to `bot_activity`, Felix receives an email at felix@nocode-ai.co within seconds
   2. The email shows the lead's name, business, their message, and which bot captured them
   3. If the Resend API call fails, the bot continues processing messages normally (no crash, no blocked replies)
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 01-01-PLAN.md — Add notifyLeadCaptured to bot_agent.mjs and deploy to VPS
 
 ### Phase 2: Lead Tracking
 **Goal**: Captured leads are stored with status and Felix can manage them from the dashboard
@@ -58,6 +61,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Lead Notifications | 0/? | Not started | - |
+| 1. Lead Notifications | 0/1 | Not started | - |
 | 2. Lead Tracking | 0/? | Not started | - |
 | 3. Client Onboarding | 0/? | Not started | - |
