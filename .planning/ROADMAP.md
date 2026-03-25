@@ -39,8 +39,11 @@ Plans:
   1. Every bot-captured lead automatically appears as a row in the Supabase `leads` table
   2. Felix can open `dashboard.html` and see all leads sorted newest first, with name, business, bot, status, and time
   3. Felix can change a lead's status (New, Contacted, Closed, Lost) directly in the dashboard and it persists
-**Plans**: TBD
-**UI hint**: yes
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Create leads table DDL and wire insertLead() into bot_agent.mjs
+- [ ] 02-02-PLAN.md — Replace dashboard leads UI with bot-capture schema and inline status dropdown
 
 ### Phase 3: Client Onboarding
 **Goal**: New clients see a welcoming, informative screen on first login instead of a blank dashboard
@@ -62,5 +65,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Lead Notifications | 1/1 | Complete   | 2026-03-25 |
-| 2. Lead Tracking | 0/? | Not started | - |
+| 2. Lead Tracking | 0/2 | Planning complete | - |
 | 3. Client Onboarding | 0/? | Not started | - |
