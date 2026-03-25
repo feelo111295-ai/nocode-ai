@@ -325,6 +325,73 @@
       .page { padding: 1rem; }
       .topbar { padding: 1rem; }
     }
+
+    /* -- Onboarding overlay -- */
+    .onboarding-overlay {
+      position: fixed; inset: 0;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; flex-direction: column; gap: 1.5rem;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    .onboarding-overlay.hide { display: none; }
+    .onboarding-content {
+      max-width: 680px; width: 100%; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    }
+    .onboarding-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem; letter-spacing: 3px; color: var(--gold);
+      line-height: 1.1;
+    }
+    .onboarding-subhead {
+      font-size: 1.05rem; color: var(--text); line-height: 1.5;
+    }
+    .onboarding-description {
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .onboarding-bots-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      width: 100%; margin-top: 0.5rem;
+    }
+    .onboarding-bot-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.2rem; text-align: left;
+    }
+    .onboarding-bot-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem; letter-spacing: 1px; color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .onboarding-bot-role {
+      font-size: 0.82rem; color: var(--muted); margin-bottom: 0.6rem;
+    }
+    .onboarding-platform-badge {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.15rem 0.55rem; border-radius: 999px;
+      margin-right: 0.35rem;
+      letter-spacing: 0.5px;
+    }
+    .onboarding-platform-badge.discord {
+      background: rgba(88,101,242,0.18); color: #7289da; border: 1px solid rgba(88,101,242,0.3);
+    }
+    .onboarding-platform-badge.telegram {
+      background: rgba(0,136,204,0.15); color: #29b6f6; border: 1px solid rgba(0,136,204,0.3);
+    }
+    .onboarding-cta {
+      background: var(--gold); color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 2px;
+      padding: 0.75rem 2.5rem; border-radius: 8px; border: none;
+      cursor: pointer; transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    .onboarding-cta:hover { background: var(--gold2); }
+    @media (max-width: 600px) {
+      .onboarding-bots-grid { grid-template-columns: 1fr; }
+      .onboarding-headline { font-size: 1.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -333,6 +400,17 @@
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-spinner"></div>
   <div class="loading-text">Loading your dashboard...</div>
+</div>
+
+<!-- Onboarding overlay -->
+<div class="onboarding-overlay hide" id="onboardingOverlay">
+  <div class="onboarding-content">
+    <div class="onboarding-headline">WELCOME TO YOUR AI COMMAND CENTER</div>
+    <div class="onboarding-subhead" id="onboardingSubhead">Your bots are live and working for Your Business.</div>
+    <div class="onboarding-description">Here's what's active and ready for your customers 24/7.</div>
+    <div class="onboarding-bots-grid" id="onboardingBotsGrid"></div>
+    <button class="onboarding-cta" onclick="dismissOnboarding()">LET'S GO &rarr;</button>
+  </div>
 </div>
 
 <!-- Top bar -->
@@ -354,7 +432,7 @@
         You're previewing NoCode-AI. <span>Your bots will be live within 1 hour of signing up.</span>
       </div>
     </div>
-    <a href="https://discord.gg/97F5Ywyk" target="_blank" class="demo-go-live">GO LIVE — $97/mo →</a>
+    <a href="mailto:felix@nocode-ai.co" class="demo-go-live">GO LIVE — $97/mo →</a>
   </div>
 
   <!-- Page header -->
@@ -405,7 +483,6 @@
 
   <!-- Quick actions -->
   <div class="quick-actions">
-    <a href="https://discord.gg/97F5Ywyk" target="_blank" class="qa-btn"><span class="qa-icon">💬</span> Talk to Support</a>
     <button class="qa-btn" id="refreshBtn" onclick="refreshData()"><span class="qa-icon">🔄</span> Refresh Data</button>
   </div>
 
@@ -440,9 +517,7 @@
           <p>Your AI team is built and ready. We'll have your bots running for your specific business in under an hour.</p>
           <div class="upgrade-price">$97<span>/month</span></div>
           <p style="font-size:0.78rem; color:var(--muted); margin-bottom:1rem;">No contracts. Cancel anytime.</p>
-          <a href="https://discord.gg/97F5Ywyk" target="_blank" class="upgrade-btn">GO LIVE NOW →</a>
-          <div class="upgrade-or">or</div>
-          <a href="https://discord.gg/97F5Ywyk" target="_blank" class="upgrade-discord">💬 Ask Felix a question on Discord</a>
+          <a href="mailto:felix@nocode-ai.co" class="upgrade-btn">GO LIVE NOW →</a>
         </div>
         <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem;">
           <div style="font-size:0.75rem; font-weight:700; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:0.8rem;">What's Included</div>
@@ -468,15 +543,15 @@
           <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem;" id="planFeatures">
             <li style="font-size:0.85rem; color:var(--muted);">Loading...</li>
           </ul>
-          <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; margin-top:1.2rem; background:rgba(244,163,0,0.08); border:1px solid rgba(244,163,0,0.25); color:var(--gold); text-decoration:none; padding:0.65rem; border-radius:8px; font-size:0.85rem; font-weight:700;">
+          <a href="mailto:felix@nocode-ai.co" style="display:block; text-align:center; margin-top:1.2rem; background:rgba(244,163,0,0.08); border:1px solid rgba(244,163,0,0.25); color:var(--gold); text-decoration:none; padding:0.65rem; border-radius:8px; font-size:0.85rem; font-weight:700;">
             Upgrade or Change Plan →
           </a>
         </div>
 
         <div class="section-title">NEED HELP?</div>
         <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Our team is in Discord 7 days a week. Ask anything — we'll get your bots dialed in exactly how you need them.</p>
-          <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; background:var(--gold); color:var(--navy); text-decoration:none; padding:0.7rem; border-radius:8px; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px;">OPEN DISCORD</a>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Have a question? Felix is here to help — reach out anytime.</p>
+          <a href="mailto:felix@nocode-ai.co" style="display:block; text-align:center; background:var(--gold); color:var(--navy); text-decoration:none; padding:0.7rem; border-radius:8px; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px;">EMAIL FELIX</a>
         </div>
 
         <div style="margin-top:1.5rem;">
@@ -563,6 +638,37 @@ const PLAN_DATA = {
 let currentUser = null;
 let isDemo = false;
 
+// -- Onboarding --
+function showOnboarding(profile) {
+  const bizName = profile?.business_name || 'Your Business';
+  document.getElementById('onboardingSubhead').textContent =
+    'Your bots are live and working for ' + bizName + '.';
+
+  const botsGrid = document.getElementById('onboardingBotsGrid');
+  botsGrid.innerHTML = ACTIVE_BOTS.map(bot => `
+    <div class="onboarding-bot-card">
+      <div class="onboarding-bot-name">${bot.emoji} ${bot.name}</div>
+      <div class="onboarding-bot-role">${bot.role}</div>
+      <div>
+        <span class="onboarding-platform-badge discord">Discord</span>
+        <span class="onboarding-platform-badge telegram">Telegram</span>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('onboardingOverlay').classList.remove('hide');
+}
+
+async function dismissOnboarding() {
+  const btn = document.querySelector('.onboarding-cta');
+  btn.disabled = true;
+  btn.textContent = 'LOADING...';
+
+  await sb.from('profiles').update({ onboarded: true }).eq('id', currentUser.id);
+
+  document.getElementById('onboardingOverlay').classList.add('hide');
+}
+
 async function init() {
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { window.location.href = 'login.html'; return; }
@@ -574,6 +680,11 @@ async function init() {
     .select('*')
     .eq('id', currentUser.id)
     .single();
+
+  // Onboarding check — show welcome overlay for new clients
+  if (profile && profile.onboarded === false) {
+    showOnboarding(profile);
+  }
 
   const plan = profile?.plan || 'demo';
   isDemo = (plan === 'demo' || !PLAN_DATA[plan]);
