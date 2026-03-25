@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to plan
-stopped_at: Completed 01-lead-notifications 01-01-PLAN.md — all 3 tasks done including VPS deploy
-last_updated: "2026-03-25T06:17:58.542Z"
+status: Phase complete — ready for verification
+stopped_at: "Checkpoint: Task 2 deploy to VPS — awaiting human verify (SSH auth required for SCP)"
+last_updated: "2026-03-25T18:45:47.787Z"
 progress:
   total_phases: 3
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
+  completed_phases: 2
+  total_plans: 4
+  completed_plans: 2
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** Bots capture and nurture leads automatically; Felix closes the qualified ones personally.
-**Current focus:** Phase 01 — lead-notifications
+**Current focus:** Phase 03 — client-onboarding
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
+Phase: 03 (client-onboarding) — EXECUTING
+Plan: 1 of 1
 
 ## Performance Metrics
 
@@ -48,6 +48,7 @@ Plan: Not started
 *Updated after each plan completion*
 | Phase 01-lead-notifications P01 | 8 | 2 tasks | 1 files |
 | Phase 01-lead-notifications P01 | 15 | 3 tasks | 1 files |
+| Phase 03-client-onboarding P01 | 15 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,8 @@ Recent decisions affecting current work:
 - [Phase 01-lead-notifications]: businessName hardcoded 'Not provided' at call site — Discord carries no business metadata; structured capture deferred to Phase 2 leads table
 - [Phase 01-lead-notifications]: notifyLeadCaptured uses .catch() fire-and-forget pattern — email send never blocks or delays bot's Discord reply
 - [Phase 01-lead-notifications]: Task 3 VPS deployment verified by Felix — email arrived at configured address, all PM2 processes online after restart
+- [Phase 03-client-onboarding]: Full-screen overlay reuses loading-overlay pattern (fixed, inset:0, .hide class) — consistent with codebase, no new layout paradigm needed
+- [Phase 03-client-onboarding]: ACTIVE_BOTS array used for onboarding bot display — no per-client Supabase query needed since all clients share the same 4 bots
 
 ### Pending Todos
 
@@ -74,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T06:13:43.706Z
-Stopped at: Completed 01-lead-notifications 01-01-PLAN.md — all 3 tasks done including VPS deploy
+Last session: 2026-03-25T18:45:47.784Z
+Stopped at: Checkpoint: Task 2 deploy to VPS — awaiting human verify (SSH auth required for SCP)
 Resume file: None

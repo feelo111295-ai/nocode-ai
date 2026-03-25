@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Lead Notifications** - Bot emails Felix the moment a lead is captured (completed 2026-03-25)
 - [ ] **Phase 2: Lead Tracking** - Leads stored in Supabase and manageable from the dashboard
-- [ ] **Phase 3: Client Onboarding** - New clients land on a welcoming active dashboard, not a blank screen
+- [x] **Phase 3: Client Onboarding** - New clients land on a welcoming active dashboard, not a blank screen (completed 2026-03-25)
 
 ## Phase Details
 
@@ -58,7 +58,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 03-01-PLAN.md — Add onboarding welcome overlay to dashboard.html and deploy to VPS
+- [x] 03-01-PLAN.md — Add onboarding welcome overlay to dashboard.html and deploy to VPS
 
 ## Progress
 
@@ -69,4 +69,4 @@ Phases execute in numeric order: 1 → 2 → 3
 |-------|----------------|--------|-----------|
 | 1. Lead Notifications | 1/1 | Complete   | 2026-03-25 |
 | 2. Lead Tracking | 0/2 | Planning complete | - |
-| 3. Client Onboarding | 0/1 | Planning complete | - |
+| 3. Client Onboarding | 1/1 | Complete   | 2026-03-25 |

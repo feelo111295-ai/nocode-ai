@@ -22,10 +22,10 @@
 
 ### Client Onboarding
 
-- [ ] **ONBD-01**: When a client with `onboarded = false` logs in, they see a welcome screen instead of a blank/empty dashboard
-- [ ] **ONBD-02**: Welcome screen displays which bots are active and which platforms they're connected to
-- [ ] **ONBD-03**: Client can dismiss the welcome screen, which sets `onboarded = true` in their Supabase profile
-- [ ] **ONBD-04**: After dismissal, client lands on the normal active dashboard with bot activity visible
+- [x] **ONBD-01**: When a client with `onboarded = false` logs in, they see a welcome screen instead of a blank/empty dashboard
+- [x] **ONBD-02**: Welcome screen displays which bots are active and which platforms they're connected to
+- [x] **ONBD-03**: Client can dismiss the welcome screen, which sets `onboarded = true` in their Supabase profile
+- [x] **ONBD-04**: After dismissal, client lands on the normal active dashboard with bot activity visible
 
 ## v2 Requirements
 
@@ -68,10 +68,10 @@
 | LEAD-03 | Phase 2 | Pending |
 | LEAD-04 | Phase 2 | Pending |
 | LEAD-05 | Phase 2 | Pending |
-| ONBD-01 | Phase 3 | Pending |
-| ONBD-02 | Phase 3 | Pending |
-| ONBD-03 | Phase 3 | Pending |
-| ONBD-04 | Phase 3 | Pending |
+| ONBD-01 | Phase 3 | Complete |
+| ONBD-02 | Phase 3 | Complete |
+| ONBD-03 | Phase 3 | Complete |
+| ONBD-04 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 13 total
