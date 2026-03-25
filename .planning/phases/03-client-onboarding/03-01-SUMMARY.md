@@ -48,8 +48,8 @@ completed: 2026-03-25
 
 - **Duration:** 15 min
 - **Started:** 2026-03-25T00:00:00Z
-- **Completed:** 2026-03-25T00:15:00Z
-- **Tasks:** 1 of 2 (Task 2 is checkpoint:human-verify pending deploy)
+- **Completed:** 2026-03-25T18:54:50Z
+- **Tasks:** 2 of 2 (complete)
 - **Files modified:** 1
 
 ## Accomplishments
@@ -65,9 +65,9 @@ completed: 2026-03-25
 Each task was committed atomically:
 
 1. **Task 1: Add onboarding overlay CSS, HTML, and JS to dashboard.html** - `3fe29e9` (feat)
-2. **Task 2: Deploy to VPS and verify onboarding flow** - PENDING (checkpoint:human-verify — SSH auth required for SCP)
+2. **Task 2: Deploy to VPS and verify onboarding flow** - human-verified (checkpoint approved — overlay appeared, LET'S GO dismissed, onboarded flipped true, refresh confirmed no reappearance)
 
-**Plan metadata:** TBD (created after deploy checkpoint is cleared)
+**Plan metadata:** `b6b55d8` (docs: complete client-onboarding overlay plan)
 
 ## Files Created/Modified
 - `dashboard.html` - Added onboarding overlay CSS, HTML, and JavaScript (showOnboarding, dismissOnboarding, init() check)
@@ -94,24 +94,13 @@ Each task was committed atomically:
 - SCP to VPS failed with `Permission denied (publickey,password)` — SSH credentials not available in executor environment. This is expected per project setup (VPS changes via SFTP/SCP from Felix's machine).
 
 ## User Setup Required
-To complete Task 2, run from your machine with VPS SSH access:
 
-```bash
-scp dashboard.html root@45.55.68.90:/var/www/nocode-ai/dashboard.html
-```
-
-Then in Supabase Table Editor:
-1. Go to Table Editor > profiles
-2. Find test user row, set `onboarded` to `false`, save
-3. Open https://nocode-ai.co/dashboard.html, log in as test client
-4. Verify: overlay appears with gold headline, 4 bot cards, Discord + Telegram badges, LET'S GO button
-5. Click LET'S GO — overlay should disappear, check Supabase that onboarded is now `true`
-6. Refresh — no overlay should appear
+None - VPS deploy and production verification complete.
 
 ## Next Phase Readiness
-- Onboarding overlay code is complete and committed in dashboard.html
-- VPS deploy is the only remaining step (requires SSH access from Felix's machine)
-- After deploy verified, phase 3 is complete
+- Phase 3 complete. All 4 onboarding requirements (ONBD-01 through ONBD-04) verified in production.
+- Phase 2 (Lead Tracking) is the remaining unstarted phase: needs `leads` table DDL in Supabase, `insertLead()` wired into `bot_agent.mjs`, and dashboard leads UI updated.
+- No blockers for Phase 2.
 
 ---
 *Phase: 03-client-onboarding*

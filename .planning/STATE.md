@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Phase complete — ready for verification
-stopped_at: "Checkpoint: Task 2 deploy to VPS — awaiting human verify (SSH auth required for SCP)"
-last_updated: "2026-03-25T18:45:47.787Z"
+stopped_at: Completed 03-01-PLAN.md — Phase 3 Client Onboarding complete, human verified in production
+last_updated: "2026-03-25T18:56:34.214Z"
 progress:
   total_phases: 3
   completed_phases: 2
@@ -49,6 +49,7 @@ Plan: 1 of 1
 | Phase 01-lead-notifications P01 | 8 | 2 tasks | 1 files |
 | Phase 01-lead-notifications P01 | 15 | 3 tasks | 1 files |
 | Phase 03-client-onboarding P01 | 15 | 1 tasks | 1 files |
+| Phase 03-client-onboarding P01 | 15 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,8 @@ Recent decisions affecting current work:
 - [Phase 01-lead-notifications]: Task 3 VPS deployment verified by Felix — email arrived at configured address, all PM2 processes online after restart
 - [Phase 03-client-onboarding]: Full-screen overlay reuses loading-overlay pattern (fixed, inset:0, .hide class) — consistent with codebase, no new layout paradigm needed
 - [Phase 03-client-onboarding]: ACTIVE_BOTS array used for onboarding bot display — no per-client Supabase query needed since all clients share the same 4 bots
+- [Phase 03-client-onboarding]: Full-screen overlay reuses loading-overlay pattern (fixed, inset:0, hide class toggle) — no new layout paradigm needed
+- [Phase 03-client-onboarding]: ACTIVE_BOTS array used for onboarding bot display — no per-client Supabase query needed since all clients share the same 4 bots
 
 ### Pending Todos
 
@@ -77,6 +80,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T18:45:47.784Z
-Stopped at: Checkpoint: Task 2 deploy to VPS — awaiting human verify (SSH auth required for SCP)
+Last session: 2026-03-25T18:56:34.211Z
+Stopped at: Completed 03-01-PLAN.md — Phase 3 Client Onboarding complete, human verified in production
 Resume file: None
