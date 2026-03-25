@@ -12,7 +12,7 @@ Three focused phases that close the gap between leads being captured and Felix b
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Lead Notifications** - Bot emails Felix the moment a lead is captured
+- [x] **Phase 1: Lead Notifications** - Bot emails Felix the moment a lead is captured (completed 2026-03-25)
 - [ ] **Phase 2: Lead Tracking** - Leads stored in Supabase and manageable from the dashboard
 - [ ] **Phase 3: Client Onboarding** - New clients land on a welcoming active dashboard, not a blank screen
 
@@ -29,7 +29,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 1 plan
 
 Plans:
-- [ ] 01-01-PLAN.md — Add notifyLeadCaptured to bot_agent.mjs and deploy to VPS
+- [x] 01-01-PLAN.md — Add notifyLeadCaptured to bot_agent.mjs and deploy to VPS
 
 ### Phase 2: Lead Tracking
 **Goal**: Captured leads are stored with status and Felix can manage them from the dashboard
@@ -61,6 +61,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Lead Notifications | 0/1 | Not started | - |
+| 1. Lead Notifications | 1/1 | Complete   | 2026-03-25 |
 | 2. Lead Tracking | 0/? | Not started | - |
 | 3. Client Onboarding | 0/? | Not started | - |
