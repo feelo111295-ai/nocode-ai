@@ -69,6 +69,27 @@ create policy "Users see own activity"
 -- Service role (used by bots) can insert activity
 -- This is handled automatically by the service key bypass
 
+-- ── Bot-captured leads ───────────────────────────────────────────────────────
+create table if not exists leads (
+  id          uuid default gen_random_uuid() primary key,
+  created_at  timestamptz default now(),
+  user_id     uuid references auth.users on delete cascade,
+  name        text,
+  business    text,
+  message     text,
+  bot_name    text not null,
+  status      text default 'New',
+  notes       text
+);
+
+create index if not exists leads_user_time
+  on leads (user_id, created_at desc);
+
+alter table leads enable row level security;
+
+create policy "Users see own leads"
+  on leads for all using (auth.uid() = user_id);
+
 -- ============================================================
 -- Done! Now copy your Project URL and anon key from:
 -- Settings → API → Project URL + anon public key

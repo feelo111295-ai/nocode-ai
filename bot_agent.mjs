@@ -24,6 +24,7 @@ import { z } from 'zod';
 // ── Supabase activity logging ────────────────────────────────────────────────
 const SUPABASE_URL         = process.env.SUPABASE_URL         || '';
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || '';
+const FELIX_USER_ID        = process.env.FELIX_USER_ID        || null;
 
 // ── Resend email ─────────────────────────────────────────────────────────────
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
@@ -64,6 +65,31 @@ async function notifyLeadCaptured({ botDisplay, userName, businessName, messageT
     log(`Lead notification sent to felix@nocode-ai.co`);
   } catch (err) {
     log(`Lead notification failed (non-fatal): ${err.message}`);
+  }
+}
+
+async function insertLead({ botName, name, business, message }) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return;
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'apikey':        SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'Prefer':        'return=minimal',
+      },
+      body: JSON.stringify({
+        user_id:  FELIX_USER_ID,
+        bot_name: botName,
+        name:     name     || null,
+        business: business || null,
+        message:  message  ? message.slice(0, 1000) : null,
+        status:   'New',
+      }),
+    });
+  } catch (err) {
+    // Non-fatal — don't crash the bot over lead storage
   }
 }
 
@@ -297,6 +323,12 @@ async function handleMessage(content, meta) {
               businessName: 'Not provided',
               messageText:  content,
             }).catch(err => log(`notifyLeadCaptured error: ${err.message}`));
+            insertLead({
+              botName:  BOT_NAME,
+              name:     meta.user,
+              business: null,
+              message:  content,
+            }).catch(err => log(`insertLead error: ${err.message}`));
           }
         }
 
