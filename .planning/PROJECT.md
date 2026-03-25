@@ -25,7 +25,7 @@ Bots capture and nurture leads automatically; Felix closes the qualified ones pe
 - ✓ Lead email notification — when a bot logs `action_type = 'lead'`, send email to feelo111295@gmail.com via Resend with lead name, business, message, and which bot captured them — Validated in Phase 1: Lead Notifications (felix@nocode-ai.co has no inbox; feelo111295@gmail.com is the confirmed recipient)
 - [ ] `leads` Supabase table — store captured leads with status (New / Contacted / Closed / Lost)
 - [ ] Lead tracking view in dashboard — Felix can see all leads, update their status, and track follow-ups
-- [ ] Client first-login experience — new clients (onboarded = false) land on a welcoming active dashboard, not a blank screen; transitions them to onboarded state
+- ✓ Client first-login experience — new clients (onboarded = false) land on a welcoming active dashboard, not a blank screen; transitions them to onboarded state — Validated in Phase 3: Client Onboarding
 
 ### Out of Scope
 
@@ -79,4 +79,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-25 after Phase 1: Lead Notifications*
+*Last updated: 2026-03-25 after Phase 3: Client Onboarding*
