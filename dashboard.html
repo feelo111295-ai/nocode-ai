@@ -712,13 +712,13 @@ function renderActiveActivity(activity) {
   list.innerHTML = activity.slice(0, 50).map(item => {
     const a   = icons[item.action_type] || { icon: '⚡', cls: 'message' };
     const bot = ACTIVE_BOTS.find(b => b.key === item.bot_name);
-    const txt = item.content ? item.content.slice(0, 80) + (item.content.length > 80 ? '...' : '') : a.label;
+    const txt = item.content ? escHtml(item.content.slice(0, 80)) + (item.content.length > 80 ? '...' : '') : '';
     return `
       <div class="activity-item">
         <div class="activity-icon ${a.cls}">${a.icon}</div>
         <div class="activity-body">
           <div class="activity-text">${txt}</div>
-          <div class="activity-meta">${bot ? bot.name : item.bot_name} &nbsp;·&nbsp; ${timeAgo(new Date(item.created_at))}</div>
+          <div class="activity-meta">${bot ? bot.name : escHtml(item.bot_name)} &nbsp;·&nbsp; ${timeAgo(new Date(item.created_at))}</div>
         </div>
       </div>`;
   }).join('');
@@ -787,23 +787,23 @@ function renderLeads(leads) {
   }
 
   tbody.innerHTML = leads.map(l => {
-    const name = [l.fname, l.lname].filter(Boolean).join(' ') || '—';
+    const name = escHtml([l.fname, l.lname].filter(Boolean).join(' ') || '—');
     const date = l.created_at
       ? new Date(l.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
       : '—';
-    const msg = l.message || '';
+    const msg = escHtml(l.message || '');
     return `
       <tr>
         <td>
           <div class="lead-name">${name}</div>
-          ${l.bizname ? `<div class="lead-sub">${l.bizname}</div>` : ''}
-          ${l.persona  ? `<div class="lead-sub" style="color:var(--gold);font-size:0.72rem;">${l.persona}</div>` : ''}
+          ${l.bizname ? `<div class="lead-sub">${escHtml(l.bizname)}</div>` : ''}
+          ${l.persona  ? `<div class="lead-sub" style="color:var(--gold);font-size:0.72rem;">${escHtml(l.persona)}</div>` : ''}
         </td>
         <td>
-          <div>${l.email || '—'}</div>
-          ${l.phone ? `<div class="lead-sub">${l.phone}</div>` : ''}
+          <div>${escHtml(l.email) || '—'}</div>
+          ${l.phone ? `<div class="lead-sub">${escHtml(l.phone)}</div>` : ''}
         </td>
-        <td><div class="lead-msg" title="${msg.replace(/"/g, '&quot;')}">${msg || '<span style="color:var(--muted);font-style:italic;">No message</span>'}</div></td>
+        <td><div class="lead-msg" title="${msg}">${msg || '<span style="color:var(--muted);font-style:italic;">No message</span>'}</div></td>
         <td style="white-space:nowrap; color:var(--muted); font-size:0.82rem;">${date}</td>
       </tr>`;
   }).join('');
@@ -828,6 +828,16 @@ async function exportLeads() {
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function timeAgo(date) {
   const diff = Math.floor((Date.now() - date.getTime()) / 1000);
   if (diff < 60)    return diff + 's ago';
