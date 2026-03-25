@@ -290,6 +290,14 @@ async function handleMessage(content, meta) {
             messageId: block.input.reply_to || meta.message_id,
             content: block.input.text,
           });
+          if (actionType === 'lead') {
+            notifyLeadCaptured({
+              botDisplay:   config.display,
+              userName:     meta.user,
+              businessName: 'Not provided',
+              messageText:  content,
+            }).catch(err => log(`notifyLeadCaptured error: ${err.message}`));
+          }
         }
 
         let resultText;
