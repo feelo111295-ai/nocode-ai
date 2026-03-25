@@ -7,10 +7,10 @@
 
 ### Lead Notifications
 
-- [ ] **NOTF-01**: When a bot logs `action_type = 'lead'` to `bot_activity`, an email is automatically sent to felix@nocode-ai.co
-- [ ] **NOTF-02**: Email includes lead's name, business name, the message they sent, and which bot captured them
-- [ ] **NOTF-03**: Email is sent via Resend API from `bot_agent.mjs` on the DigitalOcean VPS
-- [ ] **NOTF-04**: Email sends reliably without blocking bot message processing (async, non-fatal on failure)
+- [x] **NOTF-01**: When a bot logs `action_type = 'lead'` to `bot_activity`, an email is automatically sent to felix@nocode-ai.co
+- [x] **NOTF-02**: Email includes lead's name, business name, the message they sent, and which bot captured them
+- [x] **NOTF-03**: Email is sent via Resend API from `bot_agent.mjs` on the DigitalOcean VPS
+- [x] **NOTF-04**: Email sends reliably without blocking bot message processing (async, non-fatal on failure)
 
 ### Lead Tracking
 
@@ -59,10 +59,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| NOTF-01 | Phase 1 | Pending |
-| NOTF-02 | Phase 1 | Pending |
-| NOTF-03 | Phase 1 | Pending |
-| NOTF-04 | Phase 1 | Pending |
+| NOTF-01 | Phase 1 | Complete |
+| NOTF-02 | Phase 1 | Complete |
+| NOTF-03 | Phase 1 | Complete |
+| NOTF-04 | Phase 1 | Complete |
 | LEAD-01 | Phase 2 | Pending |
 | LEAD-02 | Phase 2 | Pending |
 | LEAD-03 | Phase 2 | Pending |
