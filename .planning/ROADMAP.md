@@ -54,8 +54,11 @@ Plans:
   2. The welcome screen shows which bots are active and which platforms they cover
   3. Client can dismiss the welcome screen and it never appears again (Supabase `onboarded` flips to true)
   4. After dismissal, the client sees the normal bot activity dashboard
-**Plans**: TBD
+**Plans**: 1 plan
 **UI hint**: yes
+
+Plans:
+- [ ] 03-01-PLAN.md — Add onboarding welcome overlay to dashboard.html and deploy to VPS
 
 ## Progress
 
@@ -66,4 +69,4 @@ Phases execute in numeric order: 1 → 2 → 3
 |-------|----------------|--------|-----------|
 | 1. Lead Notifications | 1/1 | Complete   | 2026-03-25 |
 | 2. Lead Tracking | 0/2 | Planning complete | - |
-| 3. Client Onboarding | 0/? | Not started | - |
+| 3. Client Onboarding | 0/1 | Planning complete | - |
