@@ -883,16 +883,20 @@
     <p class="section-label" style="text-align:center;">Get Started</p>
     <h2 style="text-align:center;">READY TO PUT YOUR<br/>BUSINESS ON AUTOPILOT?</h2>
     <p class="subtitle" style="margin-bottom: 0;">Tell us about your business and we'll reach out within 24 hours to get your bots live. No sales pressure — just answers and a path forward.</p>
+    <p style="text-align:center; margin: 0.75rem 0 1.5rem; color:var(--gold); font-size:0.95rem;">
+      📞 <a href="tel:2398260396" style="color:var(--gold);">239-826-0396</a> &nbsp;·&nbsp;
+      ✉️ <a href="mailto:feelo111295@gmail.com" style="color:var(--gold);">feelo111295@gmail.com</a>
+    </p>
 
     <div class="contact-form" id="contactForm">
       <div class="form-row">
         <div class="form-group">
           <label for="fname">First Name *</label>
-          <input type="text" id="fname" placeholder="Felix" required />
+          <input type="text" id="fname" placeholder="First Name" required />
         </div>
         <div class="form-group">
           <label for="lname">Last Name</label>
-          <input type="text" id="lname" placeholder="L." />
+          <input type="text" id="lname" placeholder="Last Name" />
         </div>
       </div>
       <div class="form-row">
@@ -937,7 +941,7 @@
 <!-- ── Footer ── -->
 <footer>
   <p style="font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:2px; color:var(--gold); margin-bottom:0.5rem;">NO CODE-AI</p>
-  <p>&copy; 2026 No Code-AI &nbsp;·&nbsp; Questions? <a href="https://discord.gg/97F5Ywyk">Find us on Discord</a> &nbsp;·&nbsp; Powered by OpenClaw</p>
+  <p>&copy; 2026 NoCode-AI &nbsp;·&nbsp; <a href="tel:2398260396" style="color:inherit;">239-826-0396</a> &nbsp;·&nbsp; <a href="mailto:feelo111295@gmail.com" style="color:inherit;">feelo111295@gmail.com</a> &nbsp;·&nbsp; <a href="https://discord.gg/97F5Ywyk">Discord</a> &nbsp;·&nbsp; Powered by Claude</p>
 </footer>
 
 <script>
@@ -1107,7 +1111,11 @@ function toggleFaq(btn) {
   }
 }
 
-// ── Lead Form → Discord Webhook ──────────────────────────────────────────────
+// ── Supabase client (leads only) ─────────────────────────────────────────────
+const _sbUrl  = 'https://vcvjzinpkefsvcmwetcl.supabase.co';
+const _sbAnon = 'sb_publishable_bTd0Bi-4eL50nJgaweXs3g_O2M7wOe4';
+
+// ── Lead Form ─────────────────────────────────────────────────────────────────
 async function submitForm() {
   const fname    = document.getElementById('fname').value.trim();
   const lname    = document.getElementById('lname').value.trim();
@@ -1126,38 +1134,49 @@ async function submitForm() {
   btn.disabled = true;
   btn.textContent = 'SENDING...';
 
-  const personaLabels = {
-    starting:    'Just Starting Out',
-    established: 'Already Made It',
-    builder:     'Want to Build Something',
-    unsure:      'Not Sure Yet',
-  };
-
-  const payload = {
-    username: 'No Code-AI Lead Form',
-    avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png',
-    embeds: [{
-      title: '🔥 New Lead — No Code-AI',
-      color: 0xF4A300,
-      fields: [
-        { name: 'Name',     value: `${fname} ${lname}`.trim(), inline: true },
-        { name: 'Email',    value: email,    inline: true },
-        { name: 'Phone',    value: phone || '—', inline: true },
-        { name: 'Business', value: bizname,  inline: true },
-        { name: 'Path',     value: personaLabels[persona] || persona, inline: true },
-        { name: 'Message',  value: message || '(no message)', inline: false },
-      ],
-      footer: { text: 'nocode-ai.com lead form' },
-      timestamp: new Date().toISOString(),
-    }]
-  };
-
   try {
-    await fetch('https://discord.com/api/webhooks/1485824517115740261/kZFMUSrzqZq_N9rq6-adjLmjc2P73h_6Kalr8TCi4858J8tFIeLqNqiDh5ILQGSEpnKw', {
+    // Save lead to Supabase
+    await fetch(`${_sbUrl}/rest/v1/leads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': _sbAnon,
+        'Authorization': `Bearer ${_sbAnon}`,
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({ fname, lname, email, phone, bizname, persona, message }),
+    });
+
+    // Send welcome email — fire and forget
+    fetch('https://nocode-ai.co:3001/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+      body: JSON.stringify({
+        to: email,
+        subject: `Hey ${fname} — your NoCode-AI team is almost ready 🤖`,
+        html: `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
+            <h2 style="color:#F4A300;">Hey ${fname},</h2>
+            <p>Just got your info — and I'm fired up to get your AI team running for <strong>${bizname}</strong>.</p>
+            <h3>Here's what happens next:</h3>
+            <p>I'll personally reach out within 24 hours to walk you through everything. No sales pitch — just a real conversation about your business and exactly how we set up your bots.</p>
+            <h3>What you're getting for $97/month:</h3>
+            <ul>
+              <li>A 24/7 AI team that answers customers, books appointments, follows up on leads, and posts your content — automatically</li>
+              <li>Live in under an hour</li>
+              <li>No coding. No developers. No headaches.</li>
+            </ul>
+            <p>Talk soon,</p>
+            <p><strong>Felix L.</strong><br/>
+            Founder, NoCode-AI<br/>
+            📞 239-826-0396<br/>
+            ✉️ feelo111295@gmail.com<br/>
+            🌐 <a href="https://nocode-ai.co">nocode-ai.co</a></p>
+          </div>
+        `,
+      }),
+    }).catch(() => {});
+
     document.getElementById('contactForm').style.display = 'none';
     document.getElementById('formSuccess').classList.add('show');
   } catch (err) {

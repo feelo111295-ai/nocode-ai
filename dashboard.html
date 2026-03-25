@@ -58,6 +58,30 @@
     /* ── Layout ── */
     .page { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
 
+    /* ── Demo banner ── */
+    .demo-banner {
+      background: linear-gradient(135deg, rgba(244,163,0,0.12), rgba(244,163,0,0.04));
+      border: 1px solid rgba(244,163,0,0.35);
+      border-radius: 14px; padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .demo-banner-left { display: flex; align-items: center; gap: 0.8rem; }
+    .demo-badge {
+      background: var(--gold); color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 2px;
+      padding: 0.2rem 0.7rem; border-radius: 999px;
+    }
+    .demo-banner-text { font-size: 0.88rem; color: var(--text); }
+    .demo-banner-text span { color: var(--muted); }
+    .demo-go-live {
+      background: var(--gold); color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px;
+      padding: 0.55rem 1.4rem; border-radius: 8px; text-decoration: none;
+      white-space: nowrap; transition: background 0.2s;
+    }
+    .demo-go-live:hover { background: var(--gold2); }
+
     /* ── Page header ── */
     .page-header { margin-bottom: 2rem; }
     .page-header h1 {
@@ -71,10 +95,7 @@
       border-radius: 50%; background: var(--teal);
       margin-right: 6px; animation: pulse 2s infinite;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
     /* ── Stat cards ── */
     .stats-grid {
@@ -90,7 +111,7 @@
     .stat-value.gold { color: var(--gold); }
     .stat-value.teal { color: var(--teal); }
     .stat-sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
-    .stat-trend { font-size: 0.78rem; color: var(--teal); font-weight: 600; margin-top: 0.4rem; }
+    .stat-demo-note { font-size: 0.72rem; color: var(--gold); margin-top: 0.4rem; font-weight: 600; }
 
     /* ── Two-col layout ── */
     .dash-cols { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; margin-bottom: 2rem; }
@@ -100,6 +121,7 @@
       font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
       letter-spacing: 2px; color: var(--text); margin-bottom: 1rem;
     }
+    .section-subtitle { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; margin-top: -0.6rem; }
     .bots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .bot-card {
       background: var(--card); border: 1px solid var(--border);
@@ -108,6 +130,7 @@
     }
     .bot-card.online { border-color: rgba(0,201,167,0.3); }
     .bot-card.offline { border-color: rgba(255,77,109,0.2); }
+    .bot-card.coming-soon { border-color: rgba(244,163,0,0.2); opacity: 0.8; }
     .bot-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
     .bot-name { font-weight: 700; font-size: 0.95rem; }
     .bot-status {
@@ -116,6 +139,7 @@
     }
     .bot-status.online { background: rgba(0,201,167,0.12); color: var(--teal); }
     .bot-status.offline { background: rgba(255,77,109,0.1); color: var(--red); }
+    .bot-status.soon { background: rgba(244,163,0,0.1); color: var(--gold); }
     .bot-role { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; }
     .bot-stat { font-size: 0.82rem; color: var(--muted); }
     .bot-stat strong { color: var(--text); }
@@ -151,7 +175,7 @@
     .activity-icon.appt     { background: rgba(100,130,255,0.1); }
     .activity-icon.email    { background: rgba(244,163,0,0.08); }
     .activity-body { flex: 1; min-width: 0; }
-    .activity-text { font-size: 0.83rem; color: var(--text); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .activity-text { font-size: 0.83rem; color: var(--text); line-height: 1.4; }
     .activity-meta { font-size: 0.73rem; color: var(--muted); margin-top: 2px; }
     .activity-empty { padding: 2.5rem; text-align: center; color: var(--muted); font-size: 0.88rem; }
 
@@ -169,6 +193,36 @@
     .savings-big { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--gold); line-height: 1; }
     .savings-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 
+    /* ── Upgrade CTA (demo only) ── */
+    .upgrade-cta {
+      background: linear-gradient(135deg, rgba(244,163,0,0.1), rgba(244,163,0,0.03));
+      border: 1px solid rgba(244,163,0,0.3);
+      border-radius: 14px; padding: 1.8rem;
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .upgrade-cta h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+      letter-spacing: 2px; color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .upgrade-cta p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
+    .upgrade-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--text); margin-bottom: 0.3rem; }
+    .upgrade-price span { font-size: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--muted); }
+    .upgrade-btn {
+      display: block; background: var(--gold); color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px;
+      padding: 0.8rem; border-radius: 10px; text-decoration: none;
+      transition: background 0.2s; margin-bottom: 0.8rem;
+    }
+    .upgrade-btn:hover { background: var(--gold2); }
+    .upgrade-or { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .upgrade-discord {
+      display: block; background: rgba(88,101,242,0.15); border: 1px solid rgba(88,101,242,0.3);
+      color: #7289da; font-size: 0.85rem; font-weight: 700;
+      padding: 0.65rem; border-radius: 8px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .upgrade-discord:hover { background: rgba(88,101,242,0.25); }
+
     /* ── Quick actions ── */
     .quick-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
     .qa-btn {
@@ -181,6 +235,12 @@
     }
     .qa-btn:hover { border-color: rgba(244,163,0,0.4); color: var(--gold); }
     .qa-btn .qa-icon { font-size: 1rem; }
+
+    /* ── Plan card ── */
+    .plan-card {
+      background: var(--card); border: 1px solid var(--gold);
+      border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem;
+    }
 
     /* ── Loading state ── */
     .loading-overlay {
@@ -200,10 +260,45 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 2px; color: var(--muted); }
 
-    /* ── Responsive ── */
-    @media(max-width: 900px) {
-      .dash-cols { grid-template-columns: 1fr; }
+    /* ── Tabs ── */
+    .tab-nav {
+      display: flex; gap: 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
     }
+    .tab-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+      color: var(--muted); padding: 0.65rem 1.4rem;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    /* ── Leads Table ── */
+    .leads-table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: var(--card); }
+    .leads-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .leads-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.03);
+      color: var(--muted); font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .leads-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text); vertical-align: top;
+    }
+    .leads-table tr:last-child td { border-bottom: none; }
+    .leads-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .lead-name { font-weight: 600; }
+    .lead-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+    .lead-msg { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 0.82rem; }
+    .leads-empty { padding: 3rem 1rem; text-align: center; color: var(--muted); }
+
+    /* ── Responsive ── */
+    @media(max-width: 900px) { .dash-cols { grid-template-columns: 1fr; } }
     @media(max-width: 600px) {
       .bots-grid { grid-template-columns: 1fr; }
       .page { padding: 1rem; }
@@ -230,10 +325,21 @@
 
 <div class="page">
 
+  <!-- Demo banner (hidden for active clients) -->
+  <div class="demo-banner" id="demoBanner" style="display:none;">
+    <div class="demo-banner-left">
+      <span class="demo-badge">DEMO</span>
+      <div class="demo-banner-text">
+        You're previewing NoCode-AI. <span>Your bots will be live within 1 hour of signing up.</span>
+      </div>
+    </div>
+    <a href="https://discord.gg/97F5Ywyk" target="_blank" class="demo-go-live">GO LIVE — $97/mo →</a>
+  </div>
+
   <!-- Page header -->
   <div class="page-header">
-    <h1><span class="status-dot"></span>Your AI Command Center</h1>
-    <p id="lastUpdated">Loading activity data...</p>
+    <h1><span class="status-dot"></span><span id="pageTitle">Your AI Command Center</span></h1>
+    <p id="lastUpdated">Loading...</p>
   </div>
 
   <!-- Stats row -->
@@ -242,21 +348,25 @@
       <div class="stat-label">Messages Handled</div>
       <div class="stat-value" id="statMessages">—</div>
       <div class="stat-sub">last 30 days</div>
+      <div class="stat-demo-note" id="demoNote1" style="display:none;">Sample data</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Leads Captured</div>
       <div class="stat-value teal" id="statLeads">—</div>
       <div class="stat-sub">last 30 days</div>
+      <div class="stat-demo-note" id="demoNote2" style="display:none;">Sample data</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Appointments Booked</div>
       <div class="stat-value gold" id="statAppts">—</div>
       <div class="stat-sub">last 30 days</div>
+      <div class="stat-demo-note" id="demoNote3" style="display:none;">Sample data</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Emails Sent</div>
       <div class="stat-value" id="statEmails">—</div>
       <div class="stat-sub">last 30 days</div>
+      <div class="stat-demo-note" id="demoNote4" style="display:none;">Sample data</div>
     </div>
   </div>
 
@@ -264,35 +374,65 @@
   <div class="savings-card">
     <div class="savings-left">
       <h3>Estimated Monthly Savings</h3>
-      <p>Based on industry avg tool costs for the bots you have running. Every message handled, lead captured, and appointment booked is money you're not paying a human to do.</p>
+      <p>Based on industry avg costs for the work your bots handle. Every message answered, lead captured, and appointment booked is money you're not paying a human to do.</p>
     </div>
     <div class="savings-right">
       <div class="savings-big" id="savingsBig">$—</div>
-      <div class="savings-sub">saved this month vs manual ops</div>
+      <div class="savings-sub" id="savingsSub">saved this month vs manual ops</div>
     </div>
   </div>
 
   <!-- Quick actions -->
   <div class="quick-actions">
     <a href="https://discord.gg/97F5Ywyk" target="_blank" class="qa-btn"><span class="qa-icon">💬</span> Talk to Support</a>
-    <button class="qa-btn" onclick="refreshData()"><span class="qa-icon">🔄</span> Refresh Data</button>
-    <button class="qa-btn" onclick="exportActivity()"><span class="qa-icon">📥</span> Export Activity</button>
+    <button class="qa-btn" id="refreshBtn" onclick="refreshData()"><span class="qa-icon">🔄</span> Refresh Data</button>
+  </div>
+
+  <!-- Tab nav -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">Overview</button>
+    <button class="tab-btn" data-tab="leads" onclick="switchTab('leads')">Leads</button>
+  </div>
+
+  <!-- Leads panel -->
+  <div id="leadsPanel" style="display:none;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:1.2rem;">
+      <div>
+        <div class="section-title">ALL LEADS</div>
+        <div style="font-size:0.85rem; color:var(--muted);" id="leadsCount">Loading...</div>
+      </div>
+      <button class="qa-btn" onclick="exportLeads()"><span class="qa-icon">📥</span> Export CSV</button>
+    </div>
+    <div class="leads-table-wrap">
+      <table class="leads-table">
+        <thead>
+          <tr>
+            <th>Name / Business</th>
+            <th>Contact</th>
+            <th>Message</th>
+            <th>Submitted</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTableBody">
+          <tr><td colspan="4" class="leads-empty">Loading leads...</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Main columns -->
-  <div class="dash-cols">
+  <div class="dash-cols" id="dashCols">
     <!-- Left: Bots + activity -->
     <div>
-      <div class="section-title">YOUR BOTS</div>
-      <div class="bots-grid" id="botsGrid">
-        <!-- Populated by JS -->
-      </div>
+      <div class="section-title" id="botsTitle">YOUR BOTS</div>
+      <div class="section-subtitle" id="botsSubtitle" style="display:none;"></div>
+      <div class="bots-grid" id="botsGrid"></div>
 
       <div style="margin-top: 1.5rem;">
-        <div class="section-title">RECENT ACTIVITY</div>
+        <div class="section-title" id="activityTitle">RECENT ACTIVITY</div>
         <div class="activity-feed">
           <div class="activity-header">
-            <h3>All Bot Activity</h3>
+            <h3 id="activityFeedTitle">Bot Activity</h3>
             <span id="activityCount">Loading...</span>
           </div>
           <div class="activity-list" id="activityList">
@@ -302,26 +442,57 @@
       </div>
     </div>
 
-    <!-- Right: Plan info -->
+    <!-- Right: Plan / CTA -->
     <div>
-      <div class="section-title">YOUR PLAN</div>
-      <div style="background:var(--card); border:1px solid var(--gold); border-radius:14px; padding:1.5rem; margin-bottom:1.5rem;">
-        <div style="font-size:0.72rem; font-weight:700; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:0.3rem;">Active Plan</div>
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; margin-bottom:0.3rem;" id="planName">—</div>
-        <div style="font-size:2rem; font-weight:800; color:var(--gold);">$97<span style="font-size:0.9rem; font-weight:400; color:var(--muted);">/month</span></div>
-        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.06); margin:1rem 0;" />
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem;" id="planFeatures">
-          <li style="font-size:0.85rem; color:var(--muted);">Loading...</li>
-        </ul>
-        <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; margin-top:1.2rem; background:rgba(244,163,0,0.08); border:1px solid rgba(244,163,0,0.25); color:var(--gold); text-decoration:none; padding:0.65rem; border-radius:8px; font-size:0.85rem; font-weight:700;">
-          Upgrade or Change Plan →
-        </a>
+      <!-- Demo: upgrade CTA -->
+      <div id="upgradePanel" style="display:none;">
+        <div class="upgrade-cta">
+          <h3>Ready To Go Live?</h3>
+          <p>Your AI team is built and ready. We'll have your bots running for your specific business in under an hour.</p>
+          <div class="upgrade-price">$97<span>/month</span></div>
+          <p style="font-size:0.78rem; color:var(--muted); margin-bottom:1rem;">No contracts. Cancel anytime.</p>
+          <a href="https://discord.gg/97F5Ywyk" target="_blank" class="upgrade-btn">GO LIVE NOW →</a>
+          <div class="upgrade-or">or</div>
+          <a href="https://discord.gg/97F5Ywyk" target="_blank" class="upgrade-discord">💬 Ask Felix a question on Discord</a>
+        </div>
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem;">
+          <div style="font-size:0.75rem; font-weight:700; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:0.8rem;">What's Included</div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
+            <li style="font-size:0.84rem; display:flex; gap:0.5rem;"><span style="color:var(--teal); font-weight:700;">✓</span> 24/7 Customer Service Bot</li>
+            <li style="font-size:0.84rem; display:flex; gap:0.5rem;"><span style="color:var(--teal); font-weight:700;">✓</span> Scheduling & Appointments</li>
+            <li style="font-size:0.84rem; display:flex; gap:0.5rem;"><span style="color:var(--teal); font-weight:700;">✓</span> Lead Capture & Follow-up</li>
+            <li style="font-size:0.84rem; display:flex; gap:0.5rem;"><span style="color:var(--teal); font-weight:700;">✓</span> Automated Email Campaigns</li>
+            <li style="font-size:0.84rem; display:flex; gap:0.5rem;"><span style="color:var(--teal); font-weight:700;">✓</span> Live in under 1 hour</li>
+            <li style="font-size:0.84rem; display:flex; gap:0.5rem;"><span style="color:var(--teal); font-weight:700;">✓</span> This dashboard + activity reports</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="section-title">NEED HELP?</div>
-      <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem;">
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Our team is in Discord 7 days a week. Ask anything — we'll get your bots dialed in exactly how you need them.</p>
-        <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; background:var(--gold); color:var(--navy); text-decoration:none; padding:0.7rem; border-radius:8px; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px;">OPEN DISCORD</a>
+      <!-- Active: plan info -->
+      <div id="planPanel" style="display:none;">
+        <div class="section-title">YOUR PLAN</div>
+        <div class="plan-card">
+          <div style="font-size:0.72rem; font-weight:700; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:0.3rem;">Active Plan</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; margin-bottom:0.3rem;" id="planName">—</div>
+          <div style="font-size:2rem; font-weight:800; color:var(--gold);">$97<span style="font-size:0.9rem; font-weight:400; color:var(--muted);">/month</span></div>
+          <hr style="border:none; border-top:1px solid rgba(255,255,255,0.06); margin:1rem 0;" />
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem;" id="planFeatures">
+            <li style="font-size:0.85rem; color:var(--muted);">Loading...</li>
+          </ul>
+          <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; margin-top:1.2rem; background:rgba(244,163,0,0.08); border:1px solid rgba(244,163,0,0.25); color:var(--gold); text-decoration:none; padding:0.65rem; border-radius:8px; font-size:0.85rem; font-weight:700;">
+            Upgrade or Change Plan →
+          </a>
+        </div>
+
+        <div class="section-title">NEED HELP?</div>
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Our team is in Discord 7 days a week. Ask anything — we'll get your bots dialed in exactly how you need them.</p>
+          <a href="https://discord.gg/97F5Ywyk" target="_blank" style="display:block; text-align:center; background:var(--gold); color:var(--navy); text-decoration:none; padding:0.7rem; border-radius:8px; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px;">OPEN DISCORD</a>
+        </div>
+
+        <div style="margin-top:1.5rem;">
+          <button class="qa-btn" onclick="exportActivity()" style="width:100%; justify-content:center;"><span class="qa-icon">📥</span> Export Activity CSV</button>
+        </div>
       </div>
     </div>
   </div>
@@ -335,41 +506,71 @@ const SUPABASE_ANON = 'sb_publishable_bTd0Bi-4eL50nJgaweXs3g_O2M7wOe4';
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 
-// ── Bot definitions ───────────────────────────────────────────────────────────
-const BOTS = [
-  { key: 'felix', name: 'Felix Bot',     role: 'Command Center / Operations',  emoji: '⚡' },
-  { key: 'kerry', name: 'Kerry Bot',     role: 'Trendora — Sales & Marketing', emoji: '🛒' },
-  { key: 'mia',   name: 'Mia Bot',       role: 'No Code-AI Sales & Onboarding',emoji: '💼' },
-  { key: 'brody', name: 'Brody Bot',     role: 'BSPP Operations & Support',    emoji: '🏗️' },
+// ── Demo sample data ──────────────────────────────────────────────────────────
+const DEMO_STATS = { messages: 247, leads: 18, appts: 6, emails: 23 };
+
+const DEMO_BOTS = [
+  { name: '🤖 Customer Service Bot', role: 'Answers FAQs, handles inquiries 24/7', status: 'soon' },
+  { name: '📅 Scheduling Bot',        role: 'Books & confirms appointments automatically', status: 'soon' },
+  { name: '🎯 Lead Gen Bot',          role: 'Captures and qualifies new leads', status: 'soon' },
+  { name: '📧 Email Bot',             role: 'Follow-ups, campaigns, confirmations', status: 'soon' },
+];
+
+const DEMO_ACTIVITY = [
+  { type: 'reply',       bot: 'Customer Service Bot', text: 'Answered inquiry about services and pricing — automatically, at 11:47pm', time: '2m ago' },
+  { type: 'lead',        bot: 'Lead Gen Bot',         text: 'New lead captured from website — details sent to owner instantly', time: '18m ago' },
+  { type: 'appointment', bot: 'Scheduling Bot',       text: 'Appointment booked and confirmed — calendar updated, no human needed', time: '1h ago' },
+  { type: 'email',       bot: 'Email Bot',            text: 'Follow-up email sent to 4 leads from this week\'s inquiries', time: '2h ago' },
+  { type: 'reply',       bot: 'Customer Service Bot', text: 'Handled after-hours customer question — responded in under 3 seconds', time: '3h ago' },
+  { type: 'lead',        bot: 'Lead Gen Bot',         text: 'Hot lead flagged — customer requested callback within the hour', time: '4h ago' },
+  { type: 'appointment', bot: 'Scheduling Bot',       text: 'Rescheduling request handled automatically — zero human touchpoints', time: '5h ago' },
+  { type: 'reply',       bot: 'Customer Service Bot', text: 'Answered 12 FAQs today — would have taken 2+ hours of manual responses', time: '8h ago' },
+  { type: 'email',       bot: 'Email Bot',            text: 'Monthly newsletter sent to 87 contacts — automated campaign complete', time: '1d ago' },
+  { type: 'lead',        bot: 'Lead Gen Bot',         text: 'Weekend lead captured Saturday 9pm — responded immediately while owner slept', time: '2d ago' },
+];
+
+// ── Active plan data ──────────────────────────────────────────────────────────
+const ACTIVE_BOTS = [
+  { key: 'felix', name: 'Felix Bot',  role: 'Command Center / Operations',   emoji: '⚡' },
+  { key: 'kerry', name: 'Kerry Bot',  role: 'NoCode-AI Sales & Marketing',   emoji: '🛒' },
+  { key: 'mia',   name: 'Mia Bot',   role: 'NoCode-AI Sales & Onboarding',  emoji: '💼' },
+  { key: 'brody', name: 'Brody Bot', role: 'NoCode-AI Operations & Support', emoji: '🏗️' },
 ];
 
 const PLAN_DATA = {
-  launch: {
-    name: 'Launch',
-    features: ['Customer Service Bot','Scheduling Bot','Email Follow-up','Google Workspace','Auto API Provisioning','Live &lt; 1 hour'],
-  },
-  replace: {
-    name: 'Replace',
-    features: ['Everything in Launch','Sales & Lead Gen Bot','Social Media Bot','Email Marketing Bot','Team Assistant','ROI Dashboard','QuickBooks + Stripe'],
-  },
-  build: {
-    name: 'Build',
-    features: ['Everything in Replace','Multi-business deployment','Custom bot personalities','White-label ready','Priority support','Monthly review call','Dedicated onboarding'],
-  },
+  launch:  { name: 'Launch',  features: ['Customer Service Bot','Scheduling Bot','Email Follow-up','Google Workspace','Live in under 1 hour'] },
+  replace: { name: 'Replace', features: ['Everything in Launch','Sales & Lead Gen Bot','Social Media Bot','Email Marketing Bot','ROI Dashboard'] },
+  build:   { name: 'Build',   features: ['Everything in Replace','Multi-business deployment','Custom bot personalities','Priority support','Monthly review call'] },
 };
 
 // ── Auth check ────────────────────────────────────────────────────────────────
 let currentUser = null;
+let isDemo = false;
 
 async function init() {
   const { data: { session } } = await sb.auth.getSession();
-  if (!session) {
-    window.location.href = 'login.html';
-    return;
-  }
+  if (!session) { window.location.href = 'login.html'; return; }
   currentUser = session.user;
   document.getElementById('userEmail').textContent = currentUser.email;
-  await loadDashboard();
+
+  const { data: profile } = await sb
+    .from('profiles')
+    .select('*')
+    .eq('id', currentUser.id)
+    .single();
+
+  const plan = profile?.plan || 'demo';
+  isDemo = (plan === 'demo' || !PLAN_DATA[plan]);
+
+  if (isDemo) {
+    renderDemoMode(profile);
+  } else {
+    renderActiveMode(plan);
+    await loadActiveData();
+  }
+
+  document.getElementById('lastUpdated').textContent =
+    'Last updated: ' + new Date().toLocaleTimeString();
   document.getElementById('loadingOverlay').classList.add('hide');
 }
 
@@ -378,21 +579,76 @@ async function signOut() {
   window.location.href = 'login.html';
 }
 
-// ── Load dashboard data ───────────────────────────────────────────────────────
-async function loadDashboard() {
+// ── Demo mode ─────────────────────────────────────────────────────────────────
+function renderDemoMode(profile) {
+  const bizName = profile?.business_name || 'Your Business';
+
+  document.getElementById('demoBanner').style.display = 'flex';
+  document.getElementById('pageTitle').textContent = bizName + ' — AI Preview';
+  document.getElementById('upgradePanel').style.display = 'block';
+  document.getElementById('botsTitle').textContent = 'YOUR BOTS (PREVIEW)';
+  document.getElementById('botsSubtitle').style.display = 'block';
+  document.getElementById('botsSubtitle').textContent = 'These bots will be live for ' + bizName + ' within 1 hour of going live.';
+  document.getElementById('activityTitle').textContent = 'ACTIVITY PREVIEW';
+  document.getElementById('activityFeedTitle').textContent = 'Sample Bot Activity';
+
+  // Stats
+  document.getElementById('statMessages').textContent = DEMO_STATS.messages.toLocaleString();
+  document.getElementById('statLeads').textContent    = DEMO_STATS.leads.toLocaleString();
+  document.getElementById('statAppts').textContent    = DEMO_STATS.appts.toLocaleString();
+  document.getElementById('statEmails').textContent   = DEMO_STATS.emails.toLocaleString();
+  ['demoNote1','demoNote2','demoNote3','demoNote4'].forEach(id =>
+    document.getElementById(id).style.display = 'block'
+  );
+
+  // Savings
+  const savings = (DEMO_STATS.messages * 15) + (DEMO_STATS.leads * 25) + (DEMO_STATS.appts * 30) + (DEMO_STATS.emails * 2);
+  document.getElementById('savingsBig').textContent = '$' + savings.toLocaleString();
+  document.getElementById('savingsSub').textContent = 'estimated savings per month (sample)';
+
+  // Bots
+  const grid = document.getElementById('botsGrid');
+  grid.innerHTML = DEMO_BOTS.map(bot => `
+    <div class="bot-card coming-soon">
+      <div class="bot-header">
+        <div class="bot-name">${bot.name}</div>
+        <div class="bot-status soon">Coming Soon</div>
+      </div>
+      <div class="bot-role">${bot.role}</div>
+      <div class="bot-stat" style="color:var(--gold); font-size:0.78rem;">Ready to deploy for your business</div>
+    </div>`).join('');
+
+  // Activity
+  const list = document.getElementById('activityList');
+  document.getElementById('activityCount').textContent = 'sample events';
+  list.innerHTML = DEMO_ACTIVITY.map(item => {
+    const icons = { reply: { icon: '💬', cls: 'message' }, lead: { icon: '🎯', cls: 'lead' }, appointment: { icon: '📅', cls: 'appt' }, email: { icon: '📧', cls: 'email' } };
+    const a = icons[item.type] || { icon: '⚡', cls: 'message' };
+    return `
+      <div class="activity-item">
+        <div class="activity-icon ${a.cls}">${a.icon}</div>
+        <div class="activity-body">
+          <div class="activity-text">${item.text}</div>
+          <div class="activity-meta">${item.bot} &nbsp;·&nbsp; ${item.time}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Active mode ───────────────────────────────────────────────────────────────
+function renderActiveMode(plan) {
+  document.getElementById('planPanel').style.display = 'block';
+  const p = PLAN_DATA[plan] || PLAN_DATA.replace;
+  document.getElementById('planName').textContent = p.name;
+  document.getElementById('planFeatures').innerHTML = p.features
+    .map(f => `<li style="font-size:0.84rem; display:flex; align-items:flex-start; gap:0.4rem;"><span style="color:var(--teal); font-weight:700; flex-shrink:0;">✓</span><span>${f}</span></li>`)
+    .join('');
+}
+
+async function loadActiveData() {
   const since = new Date();
   since.setDate(since.getDate() - 30);
 
-  // Load profile
-  const { data: profile } = await sb
-    .from('profiles')
-    .select('*')
-    .eq('id', currentUser.id)
-    .single();
-
-  renderPlan(profile?.plan || 'replace');
-
-  // Load activity
   const { data: activity, error } = await sb
     .from('bot_activity')
     .select('*')
@@ -400,57 +656,34 @@ async function loadDashboard() {
     .order('created_at', { ascending: false })
     .limit(100);
 
-  if (!error && activity) {
-    renderStats(activity);
-    renderActivity(activity);
-    renderBots(activity);
-  } else {
-    renderStats([]);
-    renderActivity([]);
-    renderBots([]);
-  }
-
-  document.getElementById('lastUpdated').textContent =
-    'Last updated: ' + new Date().toLocaleTimeString();
+  const data = (!error && activity) ? activity : [];
+  renderActiveStats(data);
+  renderActiveBots(data);
+  renderActiveActivity(data);
 }
 
-async function refreshData() {
-  document.getElementById('lastUpdated').textContent = 'Refreshing...';
-  await loadDashboard();
-}
-
-// ── Render stats ──────────────────────────────────────────────────────────────
-function renderStats(activity) {
+function renderActiveStats(activity) {
   const messages = activity.filter(a => a.action_type === 'reply').length;
   const leads    = activity.filter(a => a.action_type === 'lead').length;
   const appts    = activity.filter(a => a.action_type === 'appointment').length;
   const emails   = activity.filter(a => a.action_type === 'email').length;
-
   document.getElementById('statMessages').textContent = messages.toLocaleString();
   document.getElementById('statLeads').textContent    = leads.toLocaleString();
   document.getElementById('statAppts').textContent    = appts.toLocaleString();
   document.getElementById('statEmails').textContent   = emails.toLocaleString();
-
-  // Rough savings estimate: $15 per message handled, $25 per lead, $30 per appt, $2 per email
   const savings = (messages * 15) + (leads * 25) + (appts * 30) + (emails * 2);
   document.getElementById('savingsBig').textContent = '$' + savings.toLocaleString();
 }
 
-// ── Render bot cards ──────────────────────────────────────────────────────────
-function renderBots(activity) {
+function renderActiveBots(activity) {
   const grid = document.getElementById('botsGrid');
-  grid.innerHTML = '';
-
-  BOTS.forEach(bot => {
+  grid.innerHTML = ACTIVE_BOTS.map(bot => {
     const botActivity = activity.filter(a => a.bot_name === bot.key);
     const msgCount    = botActivity.filter(a => a.action_type === 'reply').length;
     const lastItem    = botActivity[0];
-    const lastTime    = lastItem
-      ? timeAgo(new Date(lastItem.created_at))
-      : 'No activity yet';
+    const lastTime    = lastItem ? timeAgo(new Date(lastItem.created_at)) : 'No activity yet';
     const isOnline    = lastItem && (Date.now() - new Date(lastItem.created_at).getTime()) < 3600000;
-
-    grid.innerHTML += `
+    return `
       <div class="bot-card ${isOnline ? 'online' : 'offline'}">
         <div class="bot-header">
           <div class="bot-name">${bot.emoji} ${bot.name}</div>
@@ -460,29 +693,25 @@ function renderBots(activity) {
         <div class="bot-stat">Messages: <strong>${msgCount}</strong> this month</div>
         <div class="bot-last">Last active: ${lastTime}</div>
       </div>`;
-  });
+  }).join('');
 }
 
-// ── Render activity feed ──────────────────────────────────────────────────────
-const ACTION_ICONS = {
-  reply:       { icon: '💬', cls: 'message',  label: 'Replied'           },
-  lead:        { icon: '🎯', cls: 'lead',     label: 'Lead captured'     },
-  appointment: { icon: '📅', cls: 'appt',     label: 'Appointment booked'},
-  email:       { icon: '📧', cls: 'email',    label: 'Email sent'        },
-};
-
-function renderActivity(activity) {
+function renderActiveActivity(activity) {
   const list = document.getElementById('activityList');
   document.getElementById('activityCount').textContent = activity.length + ' events';
-
   if (!activity.length) {
     list.innerHTML = '<div class="activity-empty">No activity yet. Your bots will log every message, lead, and appointment here once they start running.</div>';
     return;
   }
-
+  const icons = {
+    reply:       { icon: '💬', cls: 'message' },
+    lead:        { icon: '🎯', cls: 'lead'    },
+    appointment: { icon: '📅', cls: 'appt'    },
+    email:       { icon: '📧', cls: 'email'   },
+  };
   list.innerHTML = activity.slice(0, 50).map(item => {
-    const a   = ACTION_ICONS[item.action_type] || { icon: '⚡', cls: 'message', label: item.action_type };
-    const bot = BOTS.find(b => b.key === item.bot_name);
+    const a   = icons[item.action_type] || { icon: '⚡', cls: 'message' };
+    const bot = ACTIVE_BOTS.find(b => b.key === item.bot_name);
     const txt = item.content ? item.content.slice(0, 80) + (item.content.length > 80 ? '...' : '') : a.label;
     return `
       <div class="activity-item">
@@ -495,42 +724,115 @@ function renderActivity(activity) {
   }).join('');
 }
 
-// ── Render plan ───────────────────────────────────────────────────────────────
-function renderPlan(planKey) {
-  const plan = PLAN_DATA[planKey] || PLAN_DATA.replace;
-  document.getElementById('planName').textContent = plan.name;
-  document.getElementById('planFeatures').innerHTML = plan.features
-    .map(f => `<li style="font-size:0.84rem; display:flex; align-items:flex-start; gap:0.4rem;"><span style="color:var(--teal); font-weight:700; flex-shrink:0;">✓</span><span>${f}</span></li>`)
-    .join('');
+// ── Refresh ───────────────────────────────────────────────────────────────────
+async function refreshData() {
+  document.getElementById('lastUpdated').textContent = 'Refreshing...';
+  if (!isDemo) await loadActiveData();
+  document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
 }
 
-// ── Export ────────────────────────────────────────────────────────────────────
+// ── Export (active only) ──────────────────────────────────────────────────────
 async function exportActivity() {
-  const { data } = await sb
-    .from('bot_activity')
-    .select('*')
-    .order('created_at', { ascending: false });
-
+  const { data } = await sb.from('bot_activity').select('*').order('created_at', { ascending: false });
   if (!data || !data.length) { alert('No activity to export yet.'); return; }
-
   const csv = ['Date,Bot,Type,Content']
-    .concat(data.map(r =>
-      `"${r.created_at}","${r.bot_name}","${r.action_type}","${(r.content||'').replace(/"/g,'""')}"`
-    )).join('\n');
-
+    .concat(data.map(r => `"${r.created_at}","${r.bot_name}","${r.action_type}","${(r.content||'').replace(/"/g,'""')}"`))
+    .join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
-  a.href = url; a.download = 'nocode-ai-activity.csv';
-  a.click(); URL.revokeObjectURL(url);
+  a.href = url; a.download = 'nocode-ai-activity.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.tab === tab)
+  );
+  document.getElementById('dashCols').style.display   = (tab === 'overview') ? 'grid'  : 'none';
+  document.getElementById('leadsPanel').style.display = (tab === 'leads')    ? 'block' : 'none';
+  if (tab === 'leads' && !leadsLoaded) loadLeads();
+}
+
+// ── Leads ─────────────────────────────────────────────────────────────────────
+let leadsLoaded = false;
+
+const DEMO_LEADS = [
+  { fname: 'John',  lname: 'Smith',   email: 'john@example.com',           phone: '239-555-0101', bizname: 'Smith Plumbing',     persona: 'Plumber',          message: 'I miss leads when I\'m on job sites and need follow-up help.',       created_at: '2026-03-20T14:23:00Z' },
+  { fname: 'Maria', lname: 'Garcia',  email: 'maria@coastalclean.com',      phone: '239-555-0182', bizname: 'Coastal Clean Pro',  persona: 'Cleaning Service', message: 'Want to automate my booking and stop losing clients after hours.',    created_at: '2026-03-21T09:10:00Z' },
+  { fname: 'Derek', lname: 'Nguyen',  email: 'derek@sunstateroofing.com',   phone: '239-555-0154', bizname: 'Sunstate Roofing',   persona: 'Contractor',       message: '',                                                                    created_at: '2026-03-22T17:45:00Z' },
+  { fname: 'Lisa',  lname: 'Hartman', email: 'lisa@premierlawn.net',        phone: '941-555-0213', bizname: 'Premier Lawn Care',  persona: 'Landscaper',       message: 'Social media is dead. Need bots to handle DMs and schedule quotes.', created_at: '2026-03-23T11:30:00Z' },
+];
+
+async function loadLeads() {
+  leadsLoaded = true;
+  if (isDemo) { renderLeads(DEMO_LEADS); return; }
+  const { data, error } = await sb
+    .from('leads')
+    .select('*')
+    .order('created_at', { ascending: false });
+  renderLeads((!error && data) ? data : []);
+}
+
+function renderLeads(leads) {
+  const tbody = document.getElementById('leadsTableBody');
+  const suffix = isDemo ? ' (sample data)' : '';
+  document.getElementById('leadsCount').textContent =
+    leads.length + ' lead' + (leads.length !== 1 ? 's' : '') + suffix;
+
+  if (!leads.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="leads-empty">No leads yet. When someone fills out your contact form, they\'ll appear here.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = leads.map(l => {
+    const name = [l.fname, l.lname].filter(Boolean).join(' ') || '—';
+    const date = l.created_at
+      ? new Date(l.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      : '—';
+    const msg = l.message || '';
+    return `
+      <tr>
+        <td>
+          <div class="lead-name">${name}</div>
+          ${l.bizname ? `<div class="lead-sub">${l.bizname}</div>` : ''}
+          ${l.persona  ? `<div class="lead-sub" style="color:var(--gold);font-size:0.72rem;">${l.persona}</div>` : ''}
+        </td>
+        <td>
+          <div>${l.email || '—'}</div>
+          ${l.phone ? `<div class="lead-sub">${l.phone}</div>` : ''}
+        </td>
+        <td><div class="lead-msg" title="${msg.replace(/"/g, '&quot;')}">${msg || '<span style="color:var(--muted);font-style:italic;">No message</span>'}</div></td>
+        <td style="white-space:nowrap; color:var(--muted); font-size:0.82rem;">${date}</td>
+      </tr>`;
+  }).join('');
+}
+
+async function exportLeads() {
+  let data = isDemo ? DEMO_LEADS : null;
+  if (!data) {
+    const { data: d } = await sb.from('leads').select('*').order('created_at', { ascending: false });
+    data = d || [];
+  }
+  if (!data.length) { alert('No leads to export yet.'); return; }
+  const csv = ['Date,First Name,Last Name,Email,Phone,Business,Persona,Message']
+    .concat(data.map(r =>
+      `"${r.created_at||''}","${r.fname||''}","${r.lname||''}","${r.email||''}","${r.phone||''}","${r.bizname||''}","${r.persona||''}","${(r.message||'').replace(/"/g,'""')}"`
+    )).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'nocode-ai-leads.csv'; a.click();
+  URL.revokeObjectURL(url);
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function timeAgo(date) {
   const diff = Math.floor((Date.now() - date.getTime()) / 1000);
-  if (diff < 60)   return diff + 's ago';
-  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
-  if (diff < 86400)return Math.floor(diff/3600) + 'h ago';
+  if (diff < 60)    return diff + 's ago';
+  if (diff < 3600)  return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
   return Math.floor(diff/86400) + 'd ago';
 }
 
