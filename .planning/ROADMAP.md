@@ -43,7 +43,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Create leads table DDL and wire insertLead() into bot_agent.mjs
-- [ ] 02-02-PLAN.md — Replace dashboard leads UI with bot-capture schema and inline status dropdown
+- [x] 02-02-PLAN.md — Replace dashboard leads UI with bot-capture schema and inline status dropdown
 
 ### Phase 3: Client Onboarding
 **Goal**: New clients see a welcoming, informative screen on first login instead of a blank dashboard

@@ -14,11 +14,11 @@
 
 ### Lead Tracking
 
-- [ ] **LEAD-01**: A `leads` table exists in Supabase with fields: id, created_at, user_id (Felix's), name, business, message, bot_name, status, notes
-- [ ] **LEAD-02**: When a bot captures a lead, a row is inserted into the `leads` table automatically
-- [ ] **LEAD-03**: Felix can view all captured leads in a dedicated section of `dashboard.html`
-- [ ] **LEAD-04**: Felix can update a lead's status (New → Contacted → Closed → Lost)
-- [ ] **LEAD-05**: Lead list is sorted by newest first and shows name, business, bot, status, and time captured
+- [x] **LEAD-01**: A `leads` table exists in Supabase with fields: id, created_at, user_id (Felix's), name, business, message, bot_name, status, notes
+- [x] **LEAD-02**: When a bot captures a lead, a row is inserted into the `leads` table automatically
+- [x] **LEAD-03**: Felix can view all captured leads in a dedicated section of `dashboard.html`
+- [x] **LEAD-04**: Felix can update a lead's status (New → Contacted → Closed → Lost)
+- [x] **LEAD-05**: Lead list is sorted by newest first and shows name, business, bot, status, and time captured
 
 ### Client Onboarding
 
@@ -63,11 +63,11 @@
 | NOTF-02 | Phase 1 | Complete |
 | NOTF-03 | Phase 1 | Complete |
 | NOTF-04 | Phase 1 | Complete |
-| LEAD-01 | Phase 2 | Pending |
-| LEAD-02 | Phase 2 | Pending |
-| LEAD-03 | Phase 2 | Pending |
-| LEAD-04 | Phase 2 | Pending |
-| LEAD-05 | Phase 2 | Pending |
+| LEAD-01 | Phase 2 | Complete |
+| LEAD-02 | Phase 2 | Complete |
+| LEAD-03 | Phase 2 | Complete |
+| LEAD-04 | Phase 2 | Complete |
+| LEAD-05 | Phase 2 | Complete |
 | ONBD-01 | Phase 3 | Complete |
 | ONBD-02 | Phase 3 | Complete |
 | ONBD-03 | Phase 3 | Complete |
