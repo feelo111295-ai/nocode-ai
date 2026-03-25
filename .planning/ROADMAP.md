@@ -42,7 +42,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Create leads table DDL and wire insertLead() into bot_agent.mjs
+- [x] 02-01-PLAN.md — Create leads table DDL and wire insertLead() into bot_agent.mjs
 - [ ] 02-02-PLAN.md — Replace dashboard leads UI with bot-capture schema and inline status dropdown
 
 ### Phase 3: Client Onboarding
@@ -68,5 +68,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Lead Notifications | 1/1 | Complete   | 2026-03-25 |
-| 2. Lead Tracking | 0/2 | Planning complete | - |
+| 2. Lead Tracking | 1/2 | In Progress|  |
 | 3. Client Onboarding | 1/1 | Complete    | 2026-03-25 |

@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Milestone complete
-stopped_at: Completed 03-01-PLAN.md — Phase 3 Client Onboarding complete, human verified in production
-last_updated: "2026-03-25T19:01:06.877Z"
+status: Ready to execute
+stopped_at: Completed 02-01-PLAN.md — leads table and insertLead() deployed, all 5 bots online
+last_updated: "2026-03-25T19:17:15.358Z"
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 4
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** Bots capture and nurture leads automatically; Felix closes the qualified ones personally.
-**Current focus:** Phase 03 — client-onboarding
+**Current focus:** Phase 02 — lead-tracking
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
+Phase: 02 (lead-tracking) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Plan: Not started
 | Phase 01-lead-notifications P01 | 15 | 3 tasks | 1 files |
 | Phase 03-client-onboarding P01 | 15 | 1 tasks | 1 files |
 | Phase 03-client-onboarding P01 | 15 | 2 tasks | 1 files |
+| Phase 02-lead-tracking P01 | 30 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,9 @@ Recent decisions affecting current work:
 - [Phase 03-client-onboarding]: ACTIVE_BOTS array used for onboarding bot display — no per-client Supabase query needed since all clients share the same 4 bots
 - [Phase 03-client-onboarding]: Full-screen overlay reuses loading-overlay pattern (fixed, inset:0, hide class toggle) — no new layout paradigm needed
 - [Phase 03-client-onboarding]: ACTIVE_BOTS array used for onboarding bot display — no per-client Supabase query needed since all clients share the same 4 bots
+- [Phase 02-lead-tracking]: insertLead mirrors logActivity fetch POST pattern — consistent codebase, no new abstractions
+- [Phase 02-lead-tracking]: FELIX_USER_ID read from process.env — UUID never hardcoded in source
+- [Phase 02-lead-tracking]: Supabase pre-existing leads table absorbed by idempotent DDL — no plan changes needed
 
 ### Pending Todos
 
@@ -80,6 +84,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T18:56:34.211Z
-Stopped at: Completed 03-01-PLAN.md — Phase 3 Client Onboarding complete, human verified in production
+Last session: 2026-03-25T19:17:15.354Z
+Stopped at: Completed 02-01-PLAN.md — leads table and insertLead() deployed, all 5 bots online
 Resume file: None
