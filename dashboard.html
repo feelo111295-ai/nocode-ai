@@ -294,8 +294,29 @@
     .leads-table tr:hover td { background: rgba(255,255,255,0.02); }
     .lead-name { font-weight: 600; }
     .lead-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
-    .lead-msg { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 0.82rem; }
+    .lead-msg { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 0.82rem; }
     .leads-empty { padding: 3rem 1rem; text-align: center; color: var(--muted); }
+
+    /* ── Lead status dropdown ── */
+    .lead-status-select {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .lead-status-select.status-new       { background: rgba(0,201,167,0.12);  color: var(--teal); }
+    .lead-status-select.status-contacted { background: rgba(244,163,0,0.12);  color: var(--gold); }
+    .lead-status-select.status-closed    { background: rgba(255,255,255,0.06); color: var(--muted); }
+    .lead-status-select.status-lost      { background: rgba(255,77,109,0.10); color: var(--red); }
 
     /* ── Responsive ── */
     @media(max-width: 900px) { .dash-cols { grid-template-columns: 1fr; } }
@@ -388,38 +409,6 @@
     <button class="qa-btn" id="refreshBtn" onclick="refreshData()"><span class="qa-icon">🔄</span> Refresh Data</button>
   </div>
 
-  <!-- Tab nav -->
-  <div class="tab-nav">
-    <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">Overview</button>
-    <button class="tab-btn" data-tab="leads" onclick="switchTab('leads')">Leads</button>
-  </div>
-
-  <!-- Leads panel -->
-  <div id="leadsPanel" style="display:none;">
-    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:1.2rem;">
-      <div>
-        <div class="section-title">ALL LEADS</div>
-        <div style="font-size:0.85rem; color:var(--muted);" id="leadsCount">Loading...</div>
-      </div>
-      <button class="qa-btn" onclick="exportLeads()"><span class="qa-icon">📥</span> Export CSV</button>
-    </div>
-    <div class="leads-table-wrap">
-      <table class="leads-table">
-        <thead>
-          <tr>
-            <th>Name / Business</th>
-            <th>Contact</th>
-            <th>Message</th>
-            <th>Submitted</th>
-          </tr>
-        </thead>
-        <tbody id="leadsTableBody">
-          <tr><td colspan="4" class="leads-empty">Loading leads...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
   <!-- Main columns -->
   <div class="dash-cols" id="dashCols">
     <!-- Left: Bots + activity -->
@@ -497,6 +486,33 @@
     </div>
   </div>
 
+  <!-- ── Leads section (below activity feed) ── -->
+  <div id="leads-section" style="margin-top: 2rem;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:1.2rem;">
+      <div>
+        <div class="section-title">LEADS</div>
+        <div style="font-size:0.85rem; color:var(--muted);" id="leadsCount">Loading...</div>
+      </div>
+      <button class="qa-btn" onclick="exportLeads()"><span class="qa-icon">&#128229;</span> Export CSV</button>
+    </div>
+    <div class="leads-table-wrap">
+      <table class="leads-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Business</th>
+            <th>Bot</th>
+            <th>Status</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTableBody">
+          <tr><td colspan="5" class="leads-empty">Loading leads...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div><!-- /page -->
 
 <script>
@@ -568,6 +584,8 @@ async function init() {
     renderActiveMode(plan);
     await loadActiveData();
   }
+
+  loadLeads();
 
   document.getElementById('lastUpdated').textContent =
     'Last updated: ' + new Date().toLocaleTimeString();
@@ -745,28 +763,15 @@ async function exportActivity() {
   URL.revokeObjectURL(url);
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────────────
-function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.tab === tab)
-  );
-  document.getElementById('dashCols').style.display   = (tab === 'overview') ? 'grid'  : 'none';
-  document.getElementById('leadsPanel').style.display = (tab === 'leads')    ? 'block' : 'none';
-  if (tab === 'leads' && !leadsLoaded) loadLeads();
-}
-
 // ── Leads ─────────────────────────────────────────────────────────────────────
-let leadsLoaded = false;
-
 const DEMO_LEADS = [
-  { fname: 'John',  lname: 'Smith',   email: 'john@example.com',           phone: '239-555-0101', bizname: 'Smith Plumbing',     persona: 'Plumber',          message: 'I miss leads when I\'m on job sites and need follow-up help.',       created_at: '2026-03-20T14:23:00Z' },
-  { fname: 'Maria', lname: 'Garcia',  email: 'maria@coastalclean.com',      phone: '239-555-0182', bizname: 'Coastal Clean Pro',  persona: 'Cleaning Service', message: 'Want to automate my booking and stop losing clients after hours.',    created_at: '2026-03-21T09:10:00Z' },
-  { fname: 'Derek', lname: 'Nguyen',  email: 'derek@sunstateroofing.com',   phone: '239-555-0154', bizname: 'Sunstate Roofing',   persona: 'Contractor',       message: '',                                                                    created_at: '2026-03-22T17:45:00Z' },
-  { fname: 'Lisa',  lname: 'Hartman', email: 'lisa@premierlawn.net',        phone: '941-555-0213', bizname: 'Premier Lawn Care',  persona: 'Landscaper',       message: 'Social media is dead. Need bots to handle DMs and schedule quotes.', created_at: '2026-03-23T11:30:00Z' },
+  { id: 'demo-1', name: 'John Smith',   business: 'Smith Plumbing',    bot_name: 'felix', status: 'New',       message: 'I miss leads when I\'m on job sites and need follow-up help.',       created_at: '2026-03-20T14:23:00Z' },
+  { id: 'demo-2', name: 'Maria Garcia', business: 'Coastal Clean Pro', bot_name: 'kerry', status: 'Contacted', message: 'Want to automate my booking and stop losing clients after hours.',    created_at: '2026-03-21T09:10:00Z' },
+  { id: 'demo-3', name: 'Derek Nguyen', business: 'Sunstate Roofing',  bot_name: 'mia',   status: 'Closed',    message: '',                                                                    created_at: '2026-03-22T17:45:00Z' },
+  { id: 'demo-4', name: 'Lisa Hartman', business: 'Premier Lawn Care', bot_name: 'brody', status: 'New',       message: 'Social media is dead. Need bots to handle DMs and schedule quotes.', created_at: '2026-03-23T11:30:00Z' },
 ];
 
 async function loadLeads() {
-  leadsLoaded = true;
   if (isDemo) { renderLeads(DEMO_LEADS); return; }
   const { data, error } = await sb
     .from('leads')
@@ -782,31 +787,47 @@ function renderLeads(leads) {
     leads.length + ' lead' + (leads.length !== 1 ? 's' : '') + suffix;
 
   if (!leads.length) {
-    tbody.innerHTML = '<tr><td colspan="4" class="leads-empty">No leads yet. When someone fills out your contact form, they\'ll appear here.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="leads-empty">No leads captured yet. When a bot detects a lead, it will appear here.</td></tr>';
     return;
   }
 
   tbody.innerHTML = leads.map(l => {
-    const name = escHtml([l.fname, l.lname].filter(Boolean).join(' ') || '—');
+    const name = escHtml(l.name || '\u2014');
+    const biz  = escHtml(l.business || '\u2014');
+    const bot  = escHtml(l.bot_name || '\u2014');
+    const msg  = escHtml(l.message || '');
     const date = l.created_at
       ? new Date(l.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-      : '—';
-    const msg = escHtml(l.message || '');
-    return `
-      <tr>
-        <td>
-          <div class="lead-name">${name}</div>
-          ${l.bizname ? `<div class="lead-sub">${escHtml(l.bizname)}</div>` : ''}
-          ${l.persona  ? `<div class="lead-sub" style="color:var(--gold);font-size:0.72rem;">${escHtml(l.persona)}</div>` : ''}
-        </td>
-        <td>
-          <div>${escHtml(l.email) || '—'}</div>
-          ${l.phone ? `<div class="lead-sub">${escHtml(l.phone)}</div>` : ''}
-        </td>
-        <td><div class="lead-msg" title="${msg}">${msg || '<span style="color:var(--muted);font-style:italic;">No message</span>'}</div></td>
-        <td style="white-space:nowrap; color:var(--muted); font-size:0.82rem;">${date}</td>
-      </tr>`;
+      : '\u2014';
+    const time = l.created_at
+      ? new Date(l.created_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+      : '';
+    const statusClass = { 'New': 'status-new', 'Contacted': 'status-contacted', 'Closed': 'status-closed', 'Lost': 'status-lost' }[l.status] || 'status-new';
+    const selectHtml = `<select class="lead-status-select ${statusClass}"
+      onchange="updateLeadStatus('${escHtml(l.id)}', this.value); this.className='lead-status-select status-'+this.value.toLowerCase();">
+      ${['New','Contacted','Closed','Lost'].map(s =>
+        '<option value="' + s + '"' + (l.status === s ? ' selected' : '') + '>' + s + '</option>'
+      ).join('')}
+    </select>`;
+    return '<tr>' +
+      '<td><div class="lead-name">' + name + '</div>' +
+        (msg ? '<div class="lead-msg" title="' + msg + '">' + msg + '</div>' : '') +
+      '</td>' +
+      '<td>' + biz + '</td>' +
+      '<td>' + bot + '</td>' +
+      '<td>' + selectHtml + '</td>' +
+      '<td style="white-space:nowrap; color:var(--muted); font-size:0.82rem;">' + date + '<br><span style="font-size:0.72rem;">' + time + '</span></td>' +
+    '</tr>';
   }).join('');
+}
+
+async function updateLeadStatus(leadId, newStatus) {
+  if (isDemo) return;
+  const { error } = await sb
+    .from('leads')
+    .update({ status: newStatus })
+    .eq('id', leadId);
+  if (error) console.warn('Status update failed (non-fatal):', error.message);
 }
 
 async function exportLeads() {
@@ -816,9 +837,9 @@ async function exportLeads() {
     data = d || [];
   }
   if (!data.length) { alert('No leads to export yet.'); return; }
-  const csv = ['Date,First Name,Last Name,Email,Phone,Business,Persona,Message']
+  const csv = ['Date,Name,Business,Bot,Status,Message']
     .concat(data.map(r =>
-      `"${r.created_at||''}","${r.fname||''}","${r.lname||''}","${r.email||''}","${r.phone||''}","${r.bizname||''}","${r.persona||''}","${(r.message||'').replace(/"/g,'""')}"`
+      '"' + (r.created_at||'') + '","' + (r.name||'') + '","' + (r.business||'') + '","' + (r.bot_name||'') + '","' + (r.status||'') + '","' + ((r.message||'').replace(/"/g,'""')) + '"'
     )).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const url  = URL.createObjectURL(blob);
