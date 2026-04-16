@@ -449,9 +449,14 @@
       background: var(--gold); color: var(--navy);
       font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 3px;
       transition: all 0.2s; margin-top: 0.5rem;
+      -webkit-appearance: none; appearance: none; display: block;
     }
     .form-submit:hover { background: var(--gold2); transform: translateY(-2px); }
-    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-consent { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
+    .consent-label { display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; }
+    .consent-label input[type="checkbox"] { flex-shrink: 0; margin-top: 3px; accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
+    .consent-label span { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+    .consent-label span strong { color: var(--text); }
     .form-note { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem; }
     .form-success {
       display: none; text-align: center; padding: 2.5rem;
@@ -471,7 +476,56 @@
     }
     footer a { color: var(--gold); text-decoration: none; }
 
+    /* ── Hamburger ── */
+    .hamburger {
+      display: flex; flex-direction: column; justify-content: center; gap: 5px;
+      width: 36px; height: 36px; cursor: pointer; background: none; border: none;
+      padding: 4px; border-radius: 6px; transition: background 0.2s;
+    }
+    .hamburger:hover { background: rgba(244,163,0,0.1); }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .ham-menu {
+      display: none; flex-direction: column;
+      position: absolute; top: calc(100% + 8px); right: 2rem;
+      background: var(--navy2); border: 1px solid var(--border);
+      border-radius: 10px; min-width: 180px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      overflow: hidden; z-index: 200;
+    }
+    .ham-menu.open { display: flex; }
+    .ham-menu a {
+      padding: 0.75rem 1.2rem; color: var(--text);
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      transition: background 0.15s;
+    }
+    .ham-menu a:hover { background: rgba(255,255,255,0.05); }
+    .ham-menu .ham-divider { height: 1px; background: var(--border); margin: 0.25rem 0; }
+    .ham-menu .ham-login {
+      color: var(--gold); font-weight: 600;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .ham-menu .ham-login::before { content: '🔑'; font-size: 0.85rem; }
+
     /* ── Responsive ── */
+    .ham-page-link {
+      padding: 0.75rem 1.2rem; color: var(--text);
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      transition: background 0.15s; display: block;
+    }
+    .ham-page-link:hover { background: rgba(255,255,255,0.05); }
+    .ham-page-divider { height: 1px; background: var(--border); margin: 0.25rem 0; }
+    @media(min-width: 769px) {
+      .ham-nav-link { display: none; }
+      .ham-divider { display: none; }
+    }
     @media(max-width: 768px) {
       .nav-links { display: none; }
       .form-row { grid-template-columns: 1fr; }
@@ -491,21 +545,35 @@
 <nav>
   <a href="#" class="nav-logo">NO CODE<span>-AI</span></a>
   <div class="nav-links">
-    <a href="#who-its-for">Who It's For</a>
     <a href="#features">Features</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="#savings">Savings</a>
-    <a href="#pricing">Pricing</a>
+    <a href="#savings">ROI Calculator</a>
+    <a href="pricing.html">Pricing</a>
     <a href="#faq">FAQ</a>
+    <a href="login.html" style="color:var(--muted); font-size:0.85rem;">Login</a>
   </div>
   <a href="#contact" class="nav-cta">Get Started</a>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="ham-menu" id="hamMenu">
+    <a href="#features" class="ham-nav-link">Features</a>
+    <a href="#savings" class="ham-nav-link">ROI Calculator</a>
+    <a href="#faq" class="ham-nav-link">FAQ</a>
+    <a href="#contact" class="ham-nav-link" style="color:var(--gold); font-weight:700;">Get Started</a>
+    <div class="ham-divider"></div>
+    <a href="pricing.html" class="ham-page-link">Pricing</a>
+    <a href="privacy-policy.html" class="ham-page-link" style="font-size:0.84rem; color:var(--muted);">Privacy Policy</a>
+    <a href="terms.html" class="ham-page-link" style="font-size:0.84rem; color:var(--muted);">Terms of Use</a>
+    <div class="ham-page-divider"></div>
+    <a href="login.html" class="ham-login">Member Login</a>
+  </div>
 </nav>
 
 <!-- ── Hero ── -->
 <div class="hero">
   <div class="hero-badge">No Coding Required — Ever</div>
   <h1>YOUR BUSINESS<br/>DESERVES A<br/><span>24/7 AI TEAM</span></h1>
-  <p>Whether you're just starting out, already running a business, or ready to build something bigger — No Code-AI deploys a full suite of intelligent bots across every part of your operation. Live in under an hour. No coding. No developers. No headaches.</p>
+  <p>A full suite of intelligent bots across every part of your operation — customer service, follow-ups, scheduling, social media, and more. Fully built for you. Live in under an hour.</p>
   <div class="hero-btns">
     <a href="#savings" class="btn-primary">Calculate My Savings</a>
     <a href="#who-its-for" class="btn-ghost">Find Your Path</a>
@@ -514,10 +582,10 @@
 
 <!-- proof strip -->
 <div class="proof-strip">
-  <div class="proof-item"><div class="proof-num">$607</div><div class="proof-label">avg market value of what's included</div></div>
-  <div class="proof-item"><div class="proof-num">$97</div><div class="proof-label">flat monthly price — everything included</div></div>
-  <div class="proof-item"><div class="proof-num">&lt;1HR</div><div class="proof-label">from sign-up to live bots</div></div>
+  <div class="proof-item"><div class="proof-num">$1,917</div><div class="proof-label">avg monthly savings vs. buying tools separately</div></div>
+  <div class="proof-item"><div class="proof-num">$297</div><div class="proof-label">starting price — fully done for you</div></div>
   <div class="proof-item"><div class="proof-num">0</div><div class="proof-label">lines of code required from you</div></div>
+  <div class="proof-item"><div class="proof-num">30</div><div class="proof-label">days to cancel — no contracts, ever</div></div>
 </div>
 
 <!-- ── Who It's For (3 Personas) ── -->
@@ -717,70 +785,73 @@
 <!-- ── Pricing ── -->
 <section id="pricing">
   <p class="section-label">Pricing</p>
-  <h2>ONE PRICE. THREE PATHS.<br/>ALL $97/MONTH.</h2>
-  <p class="subtitle">No setup fees. No surprise bills. No tiers that hide the good stuff. Just $97/month — choose the path that fits where you are right now.</p>
+  <h2>DONE FOR YOU.<br/>THREE TIERS. ONE TEAM.</h2>
+  <p class="subtitle">We build it, run it, and keep it sharp. Your system is fully live before your first monthly bill. No contracts. Cancel anytime.</p>
 
   <div class="pricing-grid">
 
     <div class="pricing-card">
-      <div class="pricing-persona">Just Starting Out</div>
-      <h3>Launch</h3>
-      <p class="tagline">Build your business on AI from day one. No expensive tool stack. Just results.</p>
-      <p class="price-main">$97 <span>/ month</span></p>
+      <div class="pricing-persona">Tier 1</div>
+      <h3>Foundation</h3>
+      <p class="tagline">Get organized, automated, and online. We build everything — you just show up.</p>
+      <p class="price-main">$297 <span>/ month</span></p>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">+ $500 one-time setup fee</p>
       <hr class="price-divider" />
       <ul class="feature-list">
-        <li>Customer Service Bot (24/7 coverage)</li>
-        <li>Appointment Scheduling Bot</li>
-        <li>Email Follow-up Automation</li>
-        <li>Google Workspace connected</li>
-        <li>Automatic API provisioning</li>
-        <li>AI learns your business as you grow</li>
-        <li>Live in under 1 hour — no coding</li>
+        <li>CRM configured — contacts, pipeline, custom fields</li>
+        <li>Lead follow-up sequence written + loaded</li>
+        <li>Appointment reminders automated</li>
+        <li>Review requests after every job</li>
+        <li>1 lead capture landing page built</li>
+        <li>Unified inbox — SMS, email, FB in one place</li>
+        <li>$50/mo SMS + email credits included</li>
       </ul>
-      <a href="#contact" class="pricing-btn ghost">Get Started Free</a>
+      <a href="#contact" class="pricing-btn ghost">Get Started</a>
     </div>
 
     <div class="pricing-card featured">
       <div class="popular-badge">Most Popular</div>
-      <div class="pricing-persona">Already Made It</div>
-      <h3>Replace</h3>
-      <p class="tagline">Cancel your entire tool stack. Replace it with one intelligent platform that does everything better.</p>
-      <p class="price-main">$97 <span>/ month</span></p>
+      <div class="pricing-persona">Tier 2</div>
+      <h3>Growth</h3>
+      <p class="tagline">Active campaigns written and sent by us every month. You approve — we execute.</p>
+      <p class="price-main">$497 <span>/ month</span></p>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">+ $750 one-time setup fee</p>
       <hr class="price-divider" />
       <ul class="feature-list">
-        <li>Everything in Launch</li>
-        <li>Sales &amp; Lead Gen Bot (replaces CRM)</li>
-        <li>Social Media Bot (FB, IG, TikTok)</li>
-        <li>Email Marketing Bot (replaces Mailchimp/Klaviyo)</li>
-        <li>Internal Team Assistant</li>
-        <li>ROI Dashboard (live, real-time)</li>
-        <li>QuickBooks + Stripe connected</li>
+        <li>Everything in Foundation</li>
+        <li>Full nurture sequence (lead → booked → review)</li>
+        <li>1–2 campaigns written + sent monthly</li>
+        <li>Social media scheduled (FB, IG, Google)</li>
+        <li>Google Business Profile integration</li>
+        <li>Monthly performance report</li>
+        <li>$100/mo SMS + email credits included</li>
       </ul>
-      <a href="#contact" class="pricing-btn">Get Started — Save Immediately</a>
+      <a href="#contact" class="pricing-btn">Get Started</a>
     </div>
 
     <div class="pricing-card">
-      <div class="pricing-persona">Want to Build Something</div>
-      <h3>Build</h3>
-      <p class="tagline">Deploy for clients. Run multiple businesses. Build your AI agency on top of No Code-AI.</p>
-      <p class="price-main">$97 <span>/ month</span></p>
+      <div class="pricing-persona">Tier 3</div>
+      <h3>Full Service</h3>
+      <p class="tagline">We run your entire marketing operation. Strategy, campaigns, ads — fully managed.</p>
+      <p class="price-main">$797 <span>/ month</span></p>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">+ $1,000–1,500 one-time setup fee</p>
       <hr class="price-divider" />
       <ul class="feature-list">
-        <li>Everything in Replace</li>
-        <li>Multi-business / multi-client deployment</li>
-        <li>Custom bot personalities per business</li>
-        <li>White-label ready for agencies</li>
-        <li>Priority support</li>
-        <li>Monthly performance review call</li>
-        <li>Dedicated onboarding + custom integrations</li>
+        <li>Everything in Growth</li>
+        <li>Full account management + optimization</li>
+        <li>Ad funnel built (Facebook or Google)</li>
+        <li>3–4 campaigns written + sent monthly</li>
+        <li>Monthly strategy call</li>
+        <li>Priority support — direct line to us</li>
+        <li>$150/mo SMS + email credits included</li>
       </ul>
-      <a href="#contact" class="pricing-btn ghost">Talk to Us About Building</a>
+      <a href="#contact" class="pricing-btn ghost">Get Started</a>
     </div>
 
   </div>
 
   <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-top:2rem;">
-    All plans include the full bot suite &nbsp;·&nbsp; No setup fees &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; Live in under 1 hour
+    All packages fully built before billing starts &nbsp;·&nbsp; Month-to-month &nbsp;·&nbsp; Cancel anytime with 30 days notice &nbsp;·&nbsp; <a href="pricing.html" style="color:var(--gold);">See full breakdown →</a>
   </p>
 </section>
 
@@ -825,26 +896,6 @@
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          I'm just starting out — is this worth it before I have customers?
-          <span class="faq-arrow">+</span>
-        </button>
-        <div class="faq-a">
-          <p>100%. Starting with AI from day one means you compete at a level that took established businesses years to reach. Your customer service is instant. Your follow-ups never slip. Your social media runs itself. You look and operate like a company 10x your size from the very first week. The businesses that win in the next 5 years are the ones that built on AI early.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Can I use this to run AI for other businesses or clients?
-          <span class="faq-arrow">+</span>
-        </button>
-        <div class="faq-a">
-          <p>Yes — and this is one of the most exciting use cases. No Code-AI is designed to be deployed for multiple businesses. If you want to become the AI person in your area — offering AI automation services to local businesses — this is your platform. Talk to us directly and we'll help you build that operation.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
           Will the bots sound like me or like a robot?
           <span class="faq-arrow">+</span>
         </button>
@@ -865,11 +916,11 @@
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          Is $97 really the price? What's the catch?
+          What's actually included in the setup fee?
           <span class="faq-arrow">+</span>
         </button>
         <div class="faq-a">
-          <p>$97/month. That's it. No setup fees, no per-seat pricing, no "premium features" hidden behind a higher tier. The catch — if you'd call it that — is that AI is the infrastructure, so we're able to offer this at a price that would be impossible with traditional software. The tools this replaces cost most businesses $300–$800/month separately.</p>
+          <p>Everything. We configure your CRM, write your lead follow-up sequences, build your automations, connect your inbox, and test the whole system before going live. You don't touch a thing — the setup fee covers our labor to build your system from scratch. Monthly billing only starts after you've confirmed it's live and working.</p>
         </div>
       </div>
 
@@ -877,76 +928,45 @@
   </div>
 </div>
 
-<!-- ── Contact / Lead Form ── -->
+<!-- ── Book Strategy Call ── -->
 <div class="contact-section" id="contact">
   <div class="contact-inner">
-    <p class="section-label" style="text-align:center;">Get Started</p>
-    <h2 style="text-align:center;">READY TO PUT YOUR<br/>BUSINESS ON AUTOPILOT?</h2>
-    <p class="subtitle" style="margin-bottom: 0;">Tell us about your business and we'll reach out within 24 hours to get your bots live. No sales pressure — just answers and a path forward.</p>
+    <p class="section-label" style="text-align:center;">Book Your Strategy Call</p>
+    <h2 style="text-align:center;">PICK A TIME.<br/>WE'LL MAP OUT YOUR AI TEAM.</h2>
+    <p class="subtitle" style="margin-bottom: 0;">20 minutes. Google Meet. Zero pressure. We'll walk through your operation, show you what your bot suite would look like, and answer every question.</p>
     <p style="text-align:center; margin: 0.75rem 0 1.5rem; color:var(--gold); font-size:0.95rem;">
-      📞 <a href="tel:2398260396" style="color:var(--gold);">239-826-0396</a> &nbsp;·&nbsp;
+      📞 <a href="tel:2393231887" style="color:var(--gold);">239-323-1887</a> &nbsp;·&nbsp;
       ✉️ <a href="mailto:feelo111295@gmail.com" style="color:var(--gold);">feelo111295@gmail.com</a>
     </p>
 
-    <div class="contact-form" id="contactForm">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="fname">First Name *</label>
-          <input type="text" id="fname" placeholder="First Name" required />
-        </div>
-        <div class="form-group">
-          <label for="lname">Last Name</label>
-          <input type="text" id="lname" placeholder="Last Name" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="email">Email Address *</label>
-          <input type="email" id="email" placeholder="you@yourbusiness.com" required />
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="(941) 555-0100" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="bizname">Business Name *</label>
-        <input type="text" id="bizname" placeholder="Your Business LLC" required />
-      </div>
-      <div class="form-group">
-        <label for="persona">Which path fits you best? *</label>
-        <select id="persona" required>
-          <option value="" disabled selected>Select your situation...</option>
-          <option value="starting">Just Starting Out — I want to build on AI from day one</option>
-          <option value="established">Already Made It — I want to replace my existing tool stack</option>
-          <option value="builder">Want to Build Something — I want to deploy AI for clients or multiple businesses</option>
-          <option value="unsure">Not sure yet — I just want to learn more</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="message">What's the biggest thing slowing your business down right now? (optional)</label>
-        <textarea id="message" placeholder="Ex: I miss leads when I'm on job sites. My social media is dead. I'm paying for tools I barely use..."></textarea>
-      </div>
-      <button class="form-submit" id="formSubmit" onclick="submitForm()">SEND IT — LET'S GET YOUR BOTS LIVE</button>
-      <p class="form-note">We respond within 24 hours. No spam. No pressure. Just real help.</p>
+    <div class="booking-wrap" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(244,163,0,0.2); border-radius: 20px; padding: 1rem; margin-top: 2.5rem; overflow: hidden;">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/bookings/nocode-ai-discovery-call"
+        style="width: 100%; min-height: 780px; border: none; overflow: hidden; display: block; background: transparent;"
+        scrolling="no"
+        id="nocode-ai-discovery-call_booking">
+      </iframe>
     </div>
-
-    <div class="form-success" id="formSuccess">
-      <h3>YOU'RE IN.</h3>
-      <p>We got your message and we'll be in touch within 24 hours.<br/>In the meantime, <a href="https://discord.gg/97F5Ywyk" style="color:var(--gold)">join us on Discord</a> — ask anything, get answers fast.</p>
-    </div>
+    <p class="form-note" style="text-align:center; font-size:0.8rem; color:var(--muted); margin-top:1rem;">20-min call · Google Meet link sent to your inbox · <a href="privacy-policy.html" style="color:var(--gold);">Privacy Policy</a> | <a href="terms.html" style="color:var(--gold);">Terms of Use</a></p>
   </div>
 </div>
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 
 <!-- ── Footer ── -->
 <footer>
   <p style="font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:2px; color:var(--gold); margin-bottom:0.5rem;">NO CODE-AI</p>
-  <p>&copy; 2026 NoCode-AI &nbsp;·&nbsp; <a href="tel:2398260396" style="color:inherit;">239-826-0396</a> &nbsp;·&nbsp; <a href="mailto:feelo111295@gmail.com" style="color:inherit;">feelo111295@gmail.com</a> &nbsp;·&nbsp; <a href="https://discord.gg/97F5Ywyk">Discord</a> &nbsp;·&nbsp; Powered by Claude</p>
+  <p style="font-size:0.82rem; margin-bottom:0.25rem;">4318 NW 20th Terrace, Cape Coral, FL 33993</p>
+  <p>&copy; 2026 NoCode-AI &nbsp;·&nbsp; <a href="tel:2393231887" style="color:inherit;">239-323-1887</a> &nbsp;·&nbsp; <a href="mailto:feelo111295@gmail.com" style="color:inherit;">feelo111295@gmail.com</a></p>
+  <p style="margin-top:0.5rem;">
+    <a href="pricing.html">Pricing</a> &nbsp;·&nbsp;
+    <a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="terms.html">Terms of Use</a>
+  </p>
 </footer>
 
 <script>
 // ── ROI Calculator ────────────────────────────────────────────────────────────
-const PRICE = 97;
+const PRICE = 297;
 const TOOLS = [
   { id:'zendesk',   name:'Zendesk',             cat:'Customer Support',  cost:55  },
   { id:'freshdesk', name:'Freshdesk',            cat:'Customer Support',  cost:35  },
@@ -1040,15 +1060,15 @@ function showCalcResults() {
       </div>
       <div class="vs-pair">
         <div class="vs-box theirs"><div class="vs-lbl">What You Pay Now</div><div class="vs-amt">$${cur.toLocaleString()}</div><div class="vs-sub">per month across all tools</div></div>
-        <div class="vs-box ours"><div class="vs-lbl">With No Code-AI</div><div class="vs-amt">$97</div><div class="vs-sub">per month, everything included</div></div>
+        <div class="vs-box ours"><div class="vs-lbl">With No Code-AI</div><div class="vs-amt">$297</div><div class="vs-sub">starting price — fully done for you</div></div>
       </div>
       ${mkBreakdown(picked)}${mkValStack(false)}${mkCTA(true,cur,saves)}`;
   } else {
     res.innerHTML=`
       <div class="value-hero-box">
-        <div class="value-hero-eye">HERE'S WHAT $97 ACTUALLY GETS YOU</div>
+        <div class="value-hero-eye">HERE'S WHAT NO CODE-AI ACTUALLY GETS YOU</div>
         <div class="value-hero-h">YOU'RE PAYING <span>$${cur}/MO</span> NOW.<br/>HERE'S WHAT YOU'RE MISSING.</div>
-        <div class="value-hero-p">You may only be paying $${cur}/month today — but No Code-AI gives you an entire AI-powered business team for one flat price.</div>
+        <div class="value-hero-p">You may only be paying $${cur}/month today — but No Code-AI gives you an entire done-for-you marketing system starting at $297/month.</div>
       </div>
       ${mkUnlock(cur)}${mkValStack(true)}${mkBreakdown(picked)}${mkCTA(false,cur,saves)}`;
   }
@@ -1066,11 +1086,11 @@ function mkBreakdown(tools) {
 function mkValStack(emph) {
   return `<div class="val-stack" style="margin-bottom:14px">
     <div class="val-stack-hdr">
-      <div class="val-stack-ttl">${emph?'EVERYTHING IN YOUR $97/MONTH':'AND EVERYTHING ELSE YOU\'RE GETTING'}</div>
+      <div class="val-stack-ttl">${emph?'EVERYTHING IN YOUR NO CODE-AI PACKAGE':'AND EVERYTHING ELSE YOU\'RE GETTING'}</div>
       <div class="val-stack-sub">${emph?'Compare to buying each tool separately.':'You\'re not just replacing tools — you\'re upgrading your entire business.'}</div>
     </div>
     ${VALUE_STACK.map(v=>`<div class="val-r"><div><div class="val-feat">${v.feat}</div><div class="val-repl">Replaces: ${v.rep}</div></div><div class="val-mkt">$${v.mkt}/mo</div><div class="val-inc">✓ INCLUDED</div></div>`).join('')}
-    <div class="val-total"><div class="val-total-lbl">Total market value included</div><div><div class="val-total-mkt">$${VALUE_TOTAL}/mo separately</div><div class="val-total-price">YOUR PRICE: $97</div></div></div>
+    <div class="val-total"><div class="val-total-lbl">Total market value included</div><div><div class="val-total-mkt">$${VALUE_TOTAL}/mo separately</div><div class="val-total-price">STARTS AT: $297/MO</div></div></div>
   </div>`;
 }
 function mkUnlock(cur) {
@@ -1082,9 +1102,9 @@ function mkUnlock(cur) {
 }
 function mkCTA(isSaver,cur,saves) {
   const h=isSaver?`SAVE $${saves.toLocaleString()} EVERY MONTH`:`GET YOUR FULL AI BUSINESS TEAM`;
-  const d=isSaver?`Replace ${TOOLS.filter(t=>sel[t.id].checked).length} tools with one intelligent platform. No coding. Live in under an hour.`:`For just $97/month, deploy a full AI team across every part of your business — starting today.`;
+  const d=isSaver?`Replace ${TOOLS.filter(t=>sel[t.id].checked).length} tools with one done-for-you system. We build it, run it, and keep it sharp.`:`No Code-AI gives you a fully done-for-you marketing system starting at $297/month — we handle everything.`;
   return `<div class="cta-calc"><h3>${h}</h3><p>${d}</p>
-    <div class="cta-price-line">$97<span>/month</span></div>
+    <div class="cta-price-line">from $297<span>/month</span></div>
     <a href="#contact" class="cta-go">START TODAY — LIVE IN 1 HOUR</a>
     <button class="recalc-btn" onclick="resetCalc()">← Recalculate with different tools</button>
   </div>`;
@@ -1111,80 +1131,33 @@ function toggleFaq(btn) {
   }
 }
 
-// ── Supabase client (leads only) ─────────────────────────────────────────────
-const _sbUrl  = 'https://vcvjzinpkefsvcmwetcl.supabase.co';
-const _sbAnon = 'sb_publishable_bTd0Bi-4eL50nJgaweXs3g_O2M7wOe4';
-
-// ── Lead Form ─────────────────────────────────────────────────────────────────
-async function submitForm() {
-  const fname    = document.getElementById('fname').value.trim();
-  const lname    = document.getElementById('lname').value.trim();
-  const email    = document.getElementById('email').value.trim();
-  const phone    = document.getElementById('phone').value.trim();
-  const bizname  = document.getElementById('bizname').value.trim();
-  const persona  = document.getElementById('persona').value;
-  const message  = document.getElementById('message').value.trim();
-
-  if (!fname || !email || !bizname || !persona) {
-    alert('Please fill in all required fields.');
-    return;
-  }
-
-  const btn = document.getElementById('formSubmit');
-  btn.disabled = true;
-  btn.textContent = 'SENDING...';
-
-  try {
-    // Save lead to Supabase
-    await fetch(`${_sbUrl}/rest/v1/leads`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': _sbAnon,
-        'Authorization': `Bearer ${_sbAnon}`,
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify({ fname, lname, email, phone, bizname, persona, message }),
-    });
-
-    // Send welcome email — fire and forget
-    fetch('https://nocode-ai.co:3001/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to: email,
-        subject: `Hey ${fname} — your NoCode-AI team is almost ready 🤖`,
-        html: `
-          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
-            <h2 style="color:#F4A300;">Hey ${fname},</h2>
-            <p>Just got your info — and I'm fired up to get your AI team running for <strong>${bizname}</strong>.</p>
-            <h3>Here's what happens next:</h3>
-            <p>I'll personally reach out within 24 hours to walk you through everything. No sales pitch — just a real conversation about your business and exactly how we set up your bots.</p>
-            <h3>What you're getting for $97/month:</h3>
-            <ul>
-              <li>A 24/7 AI team that answers customers, books appointments, follows up on leads, and posts your content — automatically</li>
-              <li>Live in under an hour</li>
-              <li>No coding. No developers. No headaches.</li>
-            </ul>
-            <p>Talk soon,</p>
-            <p><strong>Felix L.</strong><br/>
-            Founder, NoCode-AI<br/>
-            📞 239-826-0396<br/>
-            ✉️ feelo111295@gmail.com<br/>
-            🌐 <a href="https://nocode-ai.co">nocode-ai.co</a></p>
-          </div>
-        `,
-      }),
-    }).catch(() => {});
-
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-  } catch (err) {
-    btn.disabled = false;
-    btn.textContent = 'SEND IT — LET\'S GET YOUR BOTS LIVE';
-    alert('Something went wrong. Please try again or reach us on Discord.');
-  }
-}
 </script>
-</body>
+
+<script>
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const hamMenu = document.getElementById('hamMenu');
+
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hamburgerBtn.classList.toggle('open');
+    hamMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', () => {
+    hamburgerBtn.classList.remove('open');
+    hamMenu.classList.remove('open');
+  });
+
+  hamMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburgerBtn.classList.remove('open');
+      hamMenu.classList.remove('open');
+    });
+  });
+</script>
+<script
+  src="https://link.msgsndr.com/js/external-tracking.js"
+  data-tracking-id="tk_9ce14dc9c5a24a06b9575930e232fb1d"
+></script>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69d908aa9f3b6f12580f974e"></script></body>
 </html>
